@@ -1,0 +1,16 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  transition: top 0.3s;
+}
+.nav-right {
+  display: flex;
+  flex-basis: 25%;
+  justify-content: space-between;
+}
+
+.nav-right--large {
+  font-size: 1.5rem;
+}
