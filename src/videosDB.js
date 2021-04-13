@@ -2,7 +2,8 @@ const videosDB = [
   {
     id: "3CvFz5j1Krk",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwnjWxpbdYvPIjjUBgmpakmoFtvwKMHwiFnryJIcL-g=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Tagore Revisited Vol. 1 | Audio Jukebox | Rabindranath Tagore | Best Bengali Hits | SVF Music",
     views: "4.4 lakh",
@@ -16,8 +17,9 @@ const videosDB = [
   {
     id: "uUq-81YeEQQ",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
-    title: "1 chord songs on guitar |arijit singh songs|sandeep mehra",
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngPWGEXk7iuBkZ-YbtimMi3aoxK04L44yeygFeu=s48-c-k-c0x00ffffff-no-rj",
+    title: "1 chord songs on guitar | arijit singh songs | sandeep mehra",
     views: "51.6K",
     channel: "Sandeep mehera",
     postedOn: "Oct 6, 2020",
@@ -28,7 +30,8 @@ const videosDB = [
   {
     id: "ajrfZjm4m6w",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwnhA0nwlwEwMnjXfF00GTSKbGoJv40-Wd30AZG2ybQ=s48-c-k-c0x00ffffff-no-rj",
     title: "How to Buy Guitar (your First Budget Guitar) by Acoustic Pahadi",
     views: "6 lakh",
     channel: "Acoustic Pahadi",
@@ -75,7 +78,8 @@ const videosDB = [
   {
     id: "9dLDGffInGs",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwnjrxQ2_AUDE-0mUZCx3bmgNfF0kQp191BAHPbNt=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Hits Of Rabindra Sangeet | Bangla Song | Best Of Tagore | Top 10 Bangla Songs 2018| Rabindra Gaan",
     views: "23 lakh",
@@ -89,7 +93,8 @@ const videosDB = [
   {
     id: "eHC5gt8iXvA",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngjo7Umxm35tfNwSKRvgyQKxc-FPYBOAMdTF4-78w=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Memories Maroon 5 Guitar Tutorial // Memories Guitar // Guitar Lesson #735",
     views: "17 lakh",
@@ -105,7 +110,8 @@ const videosDB = [
   {
     id: "g2bWTvp-vpE",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
     title: "Rabindrasangeet | Komal Gandhar I Jayati Chakraborty",
     views: "18 lakh",
     channel: "Asha Audio",
@@ -118,7 +124,8 @@ const videosDB = [
   {
     id: "eBiULzh5tUI",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwnhnge0WyaMfsJaIg1cO_YBig8DfbYKCO2Gr47q1=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Guitar Tutorial for Absolute Beginners Lesson 1 (Parts of a Guitar & Posture) By Simran Ferwani",
     views: "12, 046",
@@ -134,7 +141,8 @@ const videosDB = [
   {
     id: "zmY3vrwupFo",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Tagore From Bollywood | Audio Jukebox | All Bollywood Biggies | Various Artists",
     views: "1.3 lakh",
@@ -148,7 +156,8 @@ const videosDB = [
   {
     id: "jUcPyOkZ-Kk",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwniNVuamqJNoP47uh3UZUf1dSMeHWB7aKrzhR4SR=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Phir Mohabbat | Murder 2 | Full Song Easy Guitar Lesson | Beginner Chords | Guitar Adda",
     views: "7 lakh",
@@ -161,7 +170,8 @@ const videosDB = [
   {
     id: "U36bSGSr-MI",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwnhsywxAccgJXYkm7n6bLw9xjqwIS-qO8A0EU8pfdg=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Best of Kishore Kumar | Rabindra Sangeet | Kishore Kumar Bengali Songs",
     views: "17 lakh",
@@ -173,9 +183,10 @@ const videosDB = [
       "The legend of Kishore Kumar is like a golden nostalgia to an average Bengali mind. And if that is tied up with Rabindra Sangeet or Tagore Songs then that's a cherry on the cake. Tagore Songs sung by Kishore Kumar is still a raging hit with the Bengali mass all over the world. Kishore Kumar is the legendary figure when it comes to playback singing in India. But apart from Film songs Kishore Kumar was also a very popular artist who sang various genres including Rabindra Sangeet. This album “Diner Sheshey Ghumer Deshe” is a compilation of Rabindra Sangeet sung by this legendary playback artist, Kishore Kumar. Kishore Kumar in general is considered as one of the most successful & greatest playback singers of the Hindi film industry. But apart from Hindi he sang in many Indian languages including Bengali, Marathi, Assamese, Gujarati etc. He has also sung in private albums in several languages especially Kishore Kumar's Bengali Songs are noted as all time classics. Kishore Kumar started his cinema career as a chorus singer at Bombay Talkies, where his brother worked. Kishore's first film appearance was in Shikari (1946), in which his brother Ashok played the lead role. Music director S. D. Burman is credited with spotting Kishore Kumar's talent for singing. During the making of Mashaal (1950), Burman visited Ashok Kumar's house, where he heard Kishore  imitating K. L. Saigal. He complimented him and told him that he should develop a style of his own, instead of copying Saigal. Kumar eventually developed his own style of singing, which featured yodeling, which he had heard on the records of Tex Morton and Jimmie Rodgers. Burman recorded Kishore Kumar's voice for Dev Anand's Munimji (1954), Taxi Driver (1954),  Paying Guest (1957), Guide (1965), Jewel Thief (1967), Prem Pujari (1970), and Tere Mere Sapne (1971). He also composed music for Kishore Kumar's home production Chalti Ka Naam Gaadi (1958). Apart from singing as a playback artiste for Hindi Films, Kishore also sang for various private albums for many recording labels. This album “Diner Sheshey Ghumer Deshe” is a classic example of a Kishore Kumar Bengali Songs album where he has rendered many popular Rabindra Sangeet tracks. This compilation has some of the evergreen Tagore Songs such as Aamar Bela Je Jay, Purano Sei, Aakash Bhara Surya Tara etc. These songs sung in the melodious voice of Kishore Kumar are still super duper hits amongst the masses. This is a true classic and is a must listen. ",
   },
   {
-    id: "cmRb-Uvw78",
+    id: "-cmRb-Uvw78",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Tagore fusion | Hits of Rabindrsangeet fusion songs | Kavita , Hariharan , Sunidhi , Iman",
     views: "2.1 lakh",
@@ -189,7 +200,8 @@ const videosDB = [
   {
     id: "BBz-Jyr23M4",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwnhWNRBAV10rCX9eGndeJMRhoG7CsFMdOgtA9v6Va5w=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Guitar Lesson 1 - Absolute Beginner? Start Here! [Free 10 Day Starter Course]",
     views: "130 lakh",
@@ -208,7 +220,8 @@ const videosDB = [
   {
     id: "wAfbTvEeMmw",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwnhA0nwlwEwMnjXfF00GTSKbGoJv40-Wd30AZG2ybQ=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Basic Guitar Lesson 1 (Introduction of Guitar) for Beginners in (Hindi) by Acoustic Pahadi",
     views: "77 lakh",
@@ -219,9 +232,10 @@ const videosDB = [
     description: `Hey Friends this is Sandy. I am very thankful to every one for supporting my work.`,
   },
   {
-    id: "U0u30BTDrY",
+    id: "-U0u30BTDrY",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngzqoUo36yUsH6MN8gQVaxUWPP60_mEupVtP66b3w=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Best 20 Rabindra Sangeet Collection | সেরা ২০ টি রবীন্দ্রসংগীত | Rabindra Sangeet 2020",
     views: "80 lakh",
@@ -235,7 +249,8 @@ const videosDB = [
   {
     id: "rTMN8rCBWkw",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngT1KTBfxft2RBZAlldjI0svI94IFkW6OXSfRpa0w=s48-c-k-c0x00ffffff-no-rj",
     title:
       "(Part1) 11 Basic Guitar Chords that every Beginner Guitarist should know ~ Open Major & Minor Chords",
     views: "6 lakh",
@@ -251,7 +266,8 @@ const videosDB = [
   {
     id: "f6v72FyI-xw",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Tagore Unplugged | The best Unplugged Collection of Tagore | Rabindra Sangeet Compilation",
     views: "1.5 lakh",
@@ -265,7 +281,8 @@ const videosDB = [
   {
     id: "5rcCiXqAShY",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngv4MfPCmz7zAZVQqTsyJoGBjAlae_5wqCiBwMYhQ=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Guitar Lessons for Beginners: Episode 1 - Play Your First Song in Just 10 Minutes! 🎸",
     views: "11 lakh",
@@ -287,7 +304,8 @@ const videosDB = [
   {
     id: "RoCJG3bK7xE",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Onnyo Manomay | Manomay Bhattacharya | Audio Jukebox | Rabindra Sangeet",
     views: "2.1 lakh",
@@ -300,7 +318,8 @@ const videosDB = [
   {
     id: "zLdCdUOdTac",
     category: "guitar-tutorials",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwngT1KTBfxft2RBZAlldjI0svI94IFkW6OXSfRpa0w=s48-c-k-c0x00ffffff-no-rj",
     title:
       "How to Play Happy Birthday Melody on Guitar | Easy Guitar Lesson for Beginners (hindi)",
     views: "4 lakh",
@@ -316,7 +335,8 @@ const videosDB = [
   {
     id: "FMSjvpEfmTE",
     category: "tagore-songs",
-    thumbnail: `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    avatar:
+      "https://yt3.ggpht.com/ytc/AAUvwnhsywxAccgJXYkm7n6bLw9xjqwIS-qO8A0EU8pfdg=s48-c-k-c0x00ffffff-no-rj",
     title:
       "Top 10 Tagore Songs Collection | Shreya | Sahana | Shama | Rezwana | Rohini | Rabindra Sangeet",
     views: "93K",
@@ -328,3 +348,4 @@ const videosDB = [
       "Hindusthan Record pays a tribute to Gurudev Rabindranath Tagore with a bouquet of Rabindrasangeets in this collection. Rendered soulfully by eminent singers like Sahana, Rezwana, Shama, Shreya and Rohini, the songs remain in the hearts of the listeners like the fragrance of blossoms in spring. ",
   },
 ];
+export default videosDB;
