@@ -1,0 +1,28 @@
+.video-item {
+  margin-bottom: 1rem;
+}
+.video-item--particulars {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr 0.2fr;
+}
+
+.particulars-avatar {
+  padding: 0 0.8rem 1rem 0.8rem;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.metadata--details {
+  color: var(--rb-dark-grey);
+}
+
+.particulars--three-dot {
+  padding-right: 1rem;
+  text-align: right;
+  font-size: 1.2rem;
+}

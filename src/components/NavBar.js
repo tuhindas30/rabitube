@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import "../assests/css/NavBar.css";
+import "../assests/css/navbar.css";
 import useOnScrollNavbarAnimation from "../hooks/useOnScrollNavbarAnimation";
 const NavBar = () => {
   const scrollRef = useRef(null);
