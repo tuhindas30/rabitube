@@ -1,4 +1,4 @@
-import "../assests/css/CategoryBar.css";
+import "../assests/css/categorybar.css";
 const CategoryBar = () => {
   return (
     <div className="categories">

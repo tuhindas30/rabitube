@@ -1,4 +1,5 @@
 import CategoryBar from "../components/CategoryBar";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import VideoListing from "../components/VideoListing";
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
       <NavBar />
       <CategoryBar />
       <VideoListing />
+      <Footer />
     </>
   );
 };

@@ -16,14 +16,14 @@ const VideoListItem = ({ id, avatar, title, views, channel, postedOn }) => {
           </p>
           <p className="metadata--details">
             {channel}
-            <i class="bi bi-dot"></i>
+            <i className="bi bi-dot"></i>
             {views}
-            <i class="bi bi-dot"></i>
+            <i className="bi bi-dot"></i>
             {postedOn}
           </p>
         </div>
         <div className="particulars--three-dot">
-          <i class="bi bi-three-dots-vertical"></i>
+          <i className="bi bi-three-dots-vertical"></i>
         </div>
       </div>
     </div>

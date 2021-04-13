@@ -7,3 +7,7 @@
   box-sizing: border-box;
   letter-spacing: 0px;
 }
+
+body {
+  background-color: var(--rb-light-grey);
+}
