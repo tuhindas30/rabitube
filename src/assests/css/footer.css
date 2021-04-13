@@ -1,0 +1,20 @@
+.footer {
+  display: flex;
+  justify-content: space-evenly;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem 1rem 0.2rem 1rem;
+  line-height: 1rem;
+  background-color: var(--rb-light-grey);
+}
+
+.footer--item {
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.icon__large {
+  font-size: 1.5rem;
+}
