@@ -1,12 +1,12 @@
-.video-item {
+.video--item {
   margin-bottom: 1rem;
 }
-.video-item--particulars {
+.item--info-container {
   display: grid;
   grid-template-columns: 0.3fr 1fr 0.2fr;
 }
 
-.particulars-avatar {
+.info--avatar {
   padding: 0 0.8rem 1rem 0.8rem;
 }
 
@@ -17,12 +17,21 @@
   font-size: 1.5rem;
 }
 
-.metadata--details {
+.detail-extra {
   color: var(--rb-dark-grey);
 }
 
-.particulars--three-dot {
+.option-menu--container {
   padding-right: 1rem;
   text-align: right;
   font-size: 1.2rem;
+  cursor: pointer;
+  height: fit-content;
+}
+
+@media screen and (min-width: 768px) {
+  .video--item {
+    padding: 0 0.5rem;
+    flex-basis: 25%;
+  }
 }

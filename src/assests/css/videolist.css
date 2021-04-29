@@ -1,0 +1,39 @@
+.videos--container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1rem;
+}
+
+.videos--container:hover {
+  background-color: var(--rb-grey);
+}
+
+.container-grid {
+  padding: 0 0.5rem;
+}
+
+.fit-content {
+  height: fit-content;
+  cursor: pointer;
+}
+
+.video-info {
+  display: flex;
+}
+
+.info__grey {
+  color: var(--rb-dark-grey);
+}
+
+@media screen and (min-width: 768px) {
+  .videos--container {
+    grid-template-columns: 0.8fr 1fr;
+    margin-left: 39.2rem;
+    padding: 1rem;
+    margin-bottom: 0;
+  }
+
+  .video-info {
+    justify-content: space-between;
+  }
+}
