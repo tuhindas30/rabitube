@@ -1,14 +1,16 @@
 import CategoryBar from "../components/CategoryBar";
-import Footer from "../components/Footer";
-import NavBar from "../components/NavBar";
 import VideoListing from "../components/VideoListing";
+import "../assests/css/home.css";
+import { useParams } from "react-router";
 const Home = () => {
+  const { name } = useParams();
+
   return (
     <>
-      <NavBar />
-      <CategoryBar />
-      <VideoListing />
-      <Footer />
+      <div className="video-pages">
+        <CategoryBar />
+        <VideoListing category={name} />
+      </div>
     </>
   );
 };
