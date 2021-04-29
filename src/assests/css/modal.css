@@ -1,0 +1,71 @@
+.modal-overlay {
+  z-index: 3;
+}
+
+.modal {
+  top: 6rem;
+  bottom: 6rem;
+  left: 3rem;
+  right: 3rem;
+  padding: 1rem;
+}
+
+.modal--items {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.pb-0 {
+  padding-bottom: 0;
+}
+
+.modal--items input {
+  padding: 0.5rem;
+  width: 100%;
+  outline: none;
+  border: 0.1rem solid var(--rb-primary);
+  border-radius: 0.3rem;
+}
+
+.modal--items input:focus {
+  border-color: var(--rb-primary);
+  box-shadow: 0 0 0.2rem 1px var(--rb-primary);
+}
+
+.btn__small {
+  font-size: 1rem;
+  margin-left: 0;
+  padding: 0.2rem 0.5rem;
+}
+
+label {
+  margin-left: 1rem;
+}
+
+label input {
+  margin-right: 1rem;
+}
+
+.playlist-names {
+  overflow: auto;
+  padding: 0.5rem 0;
+  max-height: 10rem;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    top: 6rem;
+    bottom: 6rem;
+    left: 20rem;
+    right: 20rem;
+    padding: 1rem;
+  }
+}
