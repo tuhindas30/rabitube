@@ -1,20 +1,32 @@
-.categories {
+.categories--container {
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: auto;
   margin-top: 4rem;
-  padding: 0.6rem 2rem;
+  padding: 0.6rem 1rem;
 }
 
-.category {
+.category-item {
   text-align: center;
   min-width: fit-content;
   margin-right: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.9rem;
   border-radius: 10rem;
   background-color: var(--rb-grey);
 }
 
 .categories::-webkit-scrollbar {
   display: none;
+}
+
+.category__active {
+  background-color: var(--rb-light-black);
+  color: var(--rb-very-light-grey);
+}
+
+@media screen and (min-width: 768px) {
+  .categories--container {
+    margin-top: 5rem;
+  }
 }
