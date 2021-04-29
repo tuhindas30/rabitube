@@ -1,0 +1,84 @@
+.library-items--container {
+  display: block;
+  margin-top: 5rem;
+}
+
+.library-title {
+  padding: 1rem;
+}
+
+.library-items {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.library-item-name {
+  padding: 0 1rem;
+  font-size: 1.2rem;
+}
+
+.library-item-name__no-image {
+  font-size: 1.2rem;
+}
+
+.playlist-item-contents {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  border: 1px solid var(--rb-grey);
+}
+
+.library-items--container__desktop {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .library-items--container {
+    display: none;
+  }
+  .library-items--container__desktop {
+    display: block;
+    margin-top: 5rem;
+    margin-left: 13.6rem;
+  }
+
+  .section {
+    padding: 1rem;
+    border-top: 1px solid var(--rb-dark-grey);
+    border-bottom: 1px solid var(--rb-dark-grey);
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .section-title h3 {
+    padding-left: 1rem;
+  }
+
+  .watchlater-videos {
+    display: flex;
+    padding: 1rem 0;
+  }
+
+  .p0 {
+    padding: 0;
+  }
+
+  .playlisted-videos-preview {
+    display: flex;
+  }
+
+  .playlists {
+    padding: 1rem;
+  }
+}
