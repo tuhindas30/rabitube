@@ -1,6 +1,6 @@
 const videosDB = [
   {
-    id: "3CvFz5j1Krk",
+    v_id: "3CvFz5j1Krk",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwnjWxpbdYvPIjjUBgmpakmoFtvwKMHwiFnryJIcL-g=s48-c-k-c0x00ffffff-no-rj",
@@ -15,7 +15,7 @@ const videosDB = [
       "বাংলা ও রবীন্দ্রসংগীত - যুগের সাথে তাল মিলিয়ে এই মেলবন্ধন আজও চিরনতুন। Tune in to the latest collection of the Bard's songs, as new soundscapes are explored, new emotions are treaded through , all the while , being immersed in the words and the melodies , we are so used to.",
   },
   {
-    id: "uUq-81YeEQQ",
+    v_id: "uUq-81YeEQQ",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngPWGEXk7iuBkZ-YbtimMi3aoxK04L44yeygFeu=s48-c-k-c0x00ffffff-no-rj",
@@ -28,7 +28,7 @@ const videosDB = [
     description: "",
   },
   {
-    id: "ajrfZjm4m6w",
+    v_id: "ajrfZjm4m6w",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwnhA0nwlwEwMnjXfF00GTSKbGoJv40-Wd30AZG2ybQ=s48-c-k-c0x00ffffff-no-rj",
@@ -76,7 +76,7 @@ const videosDB = [
     `,
   },
   {
-    id: "9dLDGffInGs",
+    v_id: "9dLDGffInGs",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwnjrxQ2_AUDE-0mUZCx3bmgNfF0kQp191BAHPbNt=s48-c-k-c0x00ffffff-no-rj",
@@ -91,7 +91,7 @@ const videosDB = [
       "Listen & Enjoy Best collection of Rabindra sangeet, top 10 Rabindranath tagore songs in the voice of Rupankar Bagchi, the top Bangla All Time Hits of Rabindranath Tagore Songs including in a single Jukebox. This Jukebox contain best songs of Rabindranath Tagore from Albums like 'Tomaye Gaan Shonabo'. The music of the songs are directed by 'Rabindranath Tagore ,' & Lyrics given by Rabindranath Tagore. Enjoy these Bengali hit tracks of 'Rabindranath Tagore' and stay connected with us for further updates.",
   },
   {
-    id: "eHC5gt8iXvA",
+    v_id: "eHC5gt8iXvA",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngjo7Umxm35tfNwSKRvgyQKxc-FPYBOAMdTF4-78w=s48-c-k-c0x00ffffff-no-rj",
@@ -108,7 +108,7 @@ const videosDB = [
     `,
   },
   {
-    id: "g2bWTvp-vpE",
+    v_id: "g2bWTvp-vpE",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
@@ -122,7 +122,7 @@ const videosDB = [
       "Jayati Chakraborty's latest Rabindrasangeet album 'Komal Gandhar' will be available in stores near you in a while. This album has a collection of Tagore's various songs in ragas that have the note, 'Komal Gandhar' or the minor third. The note appears in various dimensions, moods and colours and soothes us in Tagore's unparalleled style, presented in a fresh out-of-the-box sound scape.",
   },
   {
-    id: "eBiULzh5tUI",
+    v_id: "eBiULzh5tUI",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwnhnge0WyaMfsJaIg1cO_YBig8DfbYKCO2Gr47q1=s48-c-k-c0x00ffffff-no-rj",
@@ -139,7 +139,7 @@ const videosDB = [
     `,
   },
   {
-    id: "zmY3vrwupFo",
+    v_id: "zmY3vrwupFo",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
@@ -154,7 +154,7 @@ const videosDB = [
       "Catch the best of Bollywood here. Compilation: Tagore From Bollywood. Artists: Hariharan , Sunidhi Chauhan , Babul Supriyo , Kavita Krishnamurti , Shaan , Alka Yagnik , Kumar Sanu , Rekha Bhardwaj , Sadhna Sargam , Roop Kumar Rathod , Subha Mudgal , Bhupinder Singh",
   },
   {
-    id: "jUcPyOkZ-Kk",
+    v_id: "jUcPyOkZ-Kk",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwniNVuamqJNoP47uh3UZUf1dSMeHWB7aKrzhR4SR=s48-c-k-c0x00ffffff-no-rj",
@@ -168,7 +168,7 @@ const videosDB = [
     description: "",
   },
   {
-    id: "U36bSGSr-MI",
+    v_id: "U36bSGSr-MI",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwnhsywxAccgJXYkm7n6bLw9xjqwIS-qO8A0EU8pfdg=s48-c-k-c0x00ffffff-no-rj",
@@ -183,7 +183,7 @@ const videosDB = [
       "The legend of Kishore Kumar is like a golden nostalgia to an average Bengali mind. And if that is tied up with Rabindra Sangeet or Tagore Songs then that's a cherry on the cake. Tagore Songs sung by Kishore Kumar is still a raging hit with the Bengali mass all over the world. Kishore Kumar is the legendary figure when it comes to playback singing in India. But apart from Film songs Kishore Kumar was also a very popular artist who sang various genres including Rabindra Sangeet. This album “Diner Sheshey Ghumer Deshe” is a compilation of Rabindra Sangeet sung by this legendary playback artist, Kishore Kumar. Kishore Kumar in general is considered as one of the most successful & greatest playback singers of the Hindi film industry. But apart from Hindi he sang in many Indian languages including Bengali, Marathi, Assamese, Gujarati etc. He has also sung in private albums in several languages especially Kishore Kumar's Bengali Songs are noted as all time classics. Kishore Kumar started his cinema career as a chorus singer at Bombay Talkies, where his brother worked. Kishore's first film appearance was in Shikari (1946), in which his brother Ashok played the lead role. Music director S. D. Burman is credited with spotting Kishore Kumar's talent for singing. During the making of Mashaal (1950), Burman visited Ashok Kumar's house, where he heard Kishore  imitating K. L. Saigal. He complimented him and told him that he should develop a style of his own, instead of copying Saigal. Kumar eventually developed his own style of singing, which featured yodeling, which he had heard on the records of Tex Morton and Jimmie Rodgers. Burman recorded Kishore Kumar's voice for Dev Anand's Munimji (1954), Taxi Driver (1954),  Paying Guest (1957), Guide (1965), Jewel Thief (1967), Prem Pujari (1970), and Tere Mere Sapne (1971). He also composed music for Kishore Kumar's home production Chalti Ka Naam Gaadi (1958). Apart from singing as a playback artiste for Hindi Films, Kishore also sang for various private albums for many recording labels. This album “Diner Sheshey Ghumer Deshe” is a classic example of a Kishore Kumar Bengali Songs album where he has rendered many popular Rabindra Sangeet tracks. This compilation has some of the evergreen Tagore Songs such as Aamar Bela Je Jay, Purano Sei, Aakash Bhara Surya Tara etc. These songs sung in the melodious voice of Kishore Kumar are still super duper hits amongst the masses. This is a true classic and is a must listen. ",
   },
   {
-    id: "-cmRb-Uvw78",
+    v_id: "-cmRb-Uvw78",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
@@ -198,7 +198,7 @@ const videosDB = [
       "Listen to some Tagore hits fused with other songs. Catch some popular Rabindrasangeet in an all new flavour.",
   },
   {
-    id: "BBz-Jyr23M4",
+    v_id: "BBz-Jyr23M4",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwnhWNRBAV10rCX9eGndeJMRhoG7CsFMdOgtA9v6Va5w=s48-c-k-c0x00ffffff-no-rj",
@@ -218,7 +218,7 @@ const videosDB = [
       Day 1 is my absolute beginners first lesson. Here, I show you how to play the easiest 2 chords on guitar, and then teach you how to play the EASY song called 'For What It's Worth' by a band called Buffalo Springfield.`,
   },
   {
-    id: "wAfbTvEeMmw",
+    v_id: "wAfbTvEeMmw",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwnhA0nwlwEwMnjXfF00GTSKbGoJv40-Wd30AZG2ybQ=s48-c-k-c0x00ffffff-no-rj",
@@ -232,7 +232,7 @@ const videosDB = [
     description: `Hey Friends this is Sandy. I am very thankful to every one for supporting my work.`,
   },
   {
-    id: "-U0u30BTDrY",
+    v_id: "-U0u30BTDrY",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngzqoUo36yUsH6MN8gQVaxUWPP60_mEupVtP66b3w=s48-c-k-c0x00ffffff-no-rj",
@@ -247,7 +247,7 @@ const videosDB = [
       "Those songs are very beautiful. I do not own any of the audios used to create the video only the editing. These all Songs do not belong to me. These copyrights belong to its rightful owners. I used them for entertainment purposes only.",
   },
   {
-    id: "rTMN8rCBWkw",
+    v_id: "rTMN8rCBWkw",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngT1KTBfxft2RBZAlldjI0svI94IFkW6OXSfRpa0w=s48-c-k-c0x00ffffff-no-rj",
@@ -264,7 +264,7 @@ const videosDB = [
     `,
   },
   {
-    id: "f6v72FyI-xw",
+    v_id: "f6v72FyI-xw",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
@@ -279,7 +279,7 @@ const videosDB = [
       "Tagore Unplugged is a special compilation featuring some of the best songs of Tagore by our favorite singers. Few of the best songs of Tagore in its purest and soothing form.",
   },
   {
-    id: "5rcCiXqAShY",
+    v_id: "5rcCiXqAShY",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngv4MfPCmz7zAZVQqTsyJoGBjAlae_5wqCiBwMYhQ=s48-c-k-c0x00ffffff-no-rj",
@@ -302,7 +302,7 @@ const videosDB = [
     `,
   },
   {
-    id: "RoCJG3bK7xE",
+    v_id: "RoCJG3bK7xE",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngLQTrd9WRALx8F9YjMIPZFzapqAi5sYZKBWa4I=s48-c-k-c0x00ffffff-no-rj",
@@ -316,7 +316,7 @@ const videosDB = [
     description: "Album: Onnyo Manomay Music Designed by Soumya Bose",
   },
   {
-    id: "zLdCdUOdTac",
+    v_id: "zLdCdUOdTac",
     category: "guitar-tutorials",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwngT1KTBfxft2RBZAlldjI0svI94IFkW6OXSfRpa0w=s48-c-k-c0x00ffffff-no-rj",
@@ -333,7 +333,7 @@ const videosDB = [
     `,
   },
   {
-    id: "FMSjvpEfmTE",
+    v_id: "FMSjvpEfmTE",
     category: "tagore-songs",
     avatar:
       "https://yt3.ggpht.com/ytc/AAUvwnhsywxAccgJXYkm7n6bLw9xjqwIS-qO8A0EU8pfdg=s48-c-k-c0x00ffffff-no-rj",
