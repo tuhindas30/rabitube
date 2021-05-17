@@ -1,35 +1,34 @@
-import { Route, Routes } from "react-router";
 import "./assests/css/global.css";
-import Home from "./pages/Home";
-import WatchLater from "./pages/WatchLater";
-import PlayLists from "./pages/PlayLists";
-import Library from "./pages/Library";
-import Video from "./pages/Video";
-import Footer from "./components/Footer";
-import NavBar from ".//components/NavBar";
-import Liked from "./pages/Liked";
-import Error404 from "./pages/Error404";
-import PlayListedVideo from "./pages/PlayListedVideos";
-import SideBar from "./components/SideBar";
+import { Route, Routes } from "react-router";
+import Home from "./pages/Home/Home";
+import Library from "./pages/Library/Library";
+import Liked from "./pages/Liked/Liked";
+import PlayListedVideos from "./pages/PlaylistedVideos/PlayListedVideos";
+import PlayLists from "./pages/Playlists/PlayLists";
+import SignIn from "./pages/SignIn";
+import Video from "./pages/Video/Video";
+import Watchlater from "./pages/Watchlater/Watchlater";
+import Error404 from "./pages/Error404/Error404";
+import PrivateRoute from "./routes/PrivateRoute";
+import SignUp from "./pages/SignUp";
+import User from "./pages/User";
 
 const App = () => {
   return (
-    <>
-      <NavBar />
-      <SideBar />
-      <Footer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/categories/:name" element={<Home />} />
-        <Route path="/liked" element={<Liked />} />
-        <Route path="/watch-later" element={<WatchLater />} />
-        <Route path="/playlists" element={<PlayLists />} />
-        <Route path="/playlists/:p_id" element={<PlayListedVideo />} />
-        <Route path="/library" element={<Library />} />
-        <Route path="/video/:v_id" element={<Video />} />
-        <Route path="*" element={<Error404 />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/categories/:id" element={<Home />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
+      <PrivateRoute path="/user" element={<User />} />
+      <PrivateRoute path="/liked" element={<Liked />} />
+      <PrivateRoute path="/watch-later" element={<Watchlater />} />
+      <PrivateRoute path="/playlists" element={<PlayLists />} />
+      <PrivateRoute path="/playlists/:pId" element={<PlayListedVideos />} />
+      <PrivateRoute path="/library" element={<Library />} />
+      <Route path="/video/:vId" element={<Video />} />
+      <Route path="*" element={<Error404 />} />
+    </Routes>
   );
 };
 
