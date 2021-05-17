@@ -1,0 +1,27 @@
+.playlistedVideos {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.playlistDetails {
+  padding: 1rem 0;
+}
+
+@media screen and (min-width: 768px) {
+  .playlistedVideos {
+    padding: 1rem 0;
+  }
+
+  .playlistImage {
+    width: 100%;
+  }
+
+  .playlistTitle {
+    font-size: 1.5rem;
+  }
+
+  .playlistDetails {
+    display: none;
+  }
+}

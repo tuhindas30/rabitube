@@ -1,0 +1,27 @@
+.sidebarNav {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .sidebarNav {
+    display: block;
+    position: fixed;
+    top: 5rem;
+    width: 16%;
+    height: 100vh;
+    border-right: 1px solid var(--rb-dark-grey);
+  }
+
+  .linksContainer {
+    padding: 1rem;
+    list-style: none;
+  }
+
+  .linksContainer li {
+    padding: 1rem;
+  }
+
+  .linkName {
+    padding-left: 1rem;
+  }
+}

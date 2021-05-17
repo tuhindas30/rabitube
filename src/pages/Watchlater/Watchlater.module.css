@@ -1,0 +1,27 @@
+.watchlaterVideolist {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.watchlaterVideosCount {
+  padding-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .watchlaterVideolist {
+    padding: 1rem 0;
+  }
+
+  .watchlaterImage {
+    width: 100%;
+  }
+
+  .watchlaterTitle {
+    font-size: 1.5rem;
+  }
+
+  .watchlaterDetails {
+    display: none;
+  }
+}

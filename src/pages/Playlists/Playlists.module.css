@@ -1,0 +1,23 @@
+.playlistsContainer {
+  margin-top: 5rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.playlistsTitle {
+  padding: 1rem 0;
+}
+
+.playlistsEmpty {
+  padding: 0 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .playlistsContainer {
+    margin-left: 13.6rem;
+  }
+
+  .playlists--title {
+    font-size: 1.5rem;
+  }
+}

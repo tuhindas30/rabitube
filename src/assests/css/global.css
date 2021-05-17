@@ -8,17 +8,31 @@
   letter-spacing: 0px;
 }
 
+:root {
+  --color-primary-black: #181818;
+  --color-link-blue: #3b82f6;
+}
+
 body {
-  background-color: var(--rb-light-grey);
+  background-color: var(--rb-very-light-grey);
 }
 
 .link {
+  position: relative;
   text-decoration: none;
   color: var(--rb-light-black);
 }
 
 .icon__large {
   font-size: 1.5rem;
+}
+
+.overlay {
+  z-index: 20;
+}
+
+.info__grey {
+  color: var(--rb-dark-grey);
 }
 
 .toast {
@@ -38,5 +52,9 @@ body {
     width: 30%;
     height: 100vh;
     border-right: 1px solid var(--rb-dark-grey);
+  }
+
+  .sidebar-nav {
+    display: block;
   }
 }

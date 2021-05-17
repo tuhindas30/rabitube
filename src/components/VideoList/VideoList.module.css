@@ -1,0 +1,35 @@
+.videosContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1rem;
+}
+
+.videosContainer:hover {
+  background-color: var(--rb-grey);
+}
+
+.containerGrid {
+  padding: 0 0.5rem;
+}
+
+.fitContent {
+  height: fit-content;
+  cursor: pointer;
+}
+
+.videoInfo {
+  display: flex;
+}
+
+@media screen and (min-width: 768px) {
+  .videosContainer {
+    grid-template-columns: 0.8fr 1fr;
+    margin-left: 39.2rem;
+    padding: 1rem;
+    margin-bottom: 0;
+  }
+
+  .videoInfo {
+    justify-content: space-between;
+  }
+}

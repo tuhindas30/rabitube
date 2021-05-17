@@ -1,0 +1,84 @@
+.libraryItemsContainer {
+  display: block;
+  margin-top: 5rem;
+}
+
+.libraryTitle {
+  padding: 1rem;
+}
+
+.libraryItems {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.libraryItemName {
+  padding: 0 1rem;
+  font-size: 1.2rem;
+}
+
+.libraryItemNameNoImage {
+  font-size: 1.2rem;
+}
+
+.playlistItemContents {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  border: 1px solid var(--rb-grey);
+}
+
+.libraryItemsContainerDesktop {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .libraryItemsContainer {
+    display: none;
+  }
+  .libraryItemsContainerDesktop {
+    display: block;
+    margin-top: 5rem;
+    margin-left: 13.6rem;
+  }
+
+  .section {
+    padding: 1rem;
+    border-top: 1px solid var(--rb-dark-grey);
+    border-bottom: 1px solid var(--rb-dark-grey);
+  }
+
+  .sectionTitle {
+    display: flex;
+    align-items: center;
+  }
+
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .sectionTitle h3 {
+    padding-left: 1rem;
+  }
+
+  .watchlaterVideos {
+    display: flex;
+    padding: 1rem 0;
+  }
+
+  .p0 {
+    padding: 0;
+  }
+
+  .playlistedVideosPreview {
+    display: flex;
+  }
+
+  .playlists {
+    padding: 1rem;
+  }
+}

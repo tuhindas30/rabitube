@@ -1,0 +1,23 @@
+.likedItems {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .likedItems {
+    padding: 1rem 0;
+  }
+
+  .playlistImage {
+    width: 100%;
+  }
+
+  .likedTitle {
+    font-size: 1.5rem;
+  }
+
+  .likedDetails {
+    display: none;
+  }
+}

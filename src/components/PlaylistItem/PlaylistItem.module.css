@@ -1,0 +1,30 @@
+.playlistItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--rb-grey);
+}
+
+.linkLarge {
+  width: 80%;
+}
+
+.playlistItem .itemVideoCount {
+  color: var(--rb-dark-grey);
+}
+
+.btnDeletePlaylist {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .playlistItem {
+    width: 80%;
+    margin: auto;
+  }
+
+  .playlistItem:hover {
+    background-color: var(--rb-grey);
+  }
+}

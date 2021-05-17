@@ -1,0 +1,16 @@
+.videoPage {
+  grid-area: pages;
+}
+
+.listVideo {
+  margin-bottom: 5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .listVideo {
+    margin-left: 13.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

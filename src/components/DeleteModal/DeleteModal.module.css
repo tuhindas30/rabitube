@@ -1,0 +1,24 @@
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.modalSmall {
+  text-align: center;
+  top: 17rem;
+  bottom: 17rem;
+  left: 3rem;
+  right: 3rem;
+  padding: 1rem;
+}
+.modalActions strong {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .modalSmall {
+    left: 30rem;
+    right: 30rem;
+  }
+}
