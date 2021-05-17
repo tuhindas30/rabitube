@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
         userDispatch({ type: "SET_USER_DATA", payload: { user: data.user } });
       })();
     loginStatus?.isUserLoggedIn && setLogin(true);
-  }, []);
+  }, [url]);
 
   const loginUserWithCredentials = async (userCredentials) => {
     try {

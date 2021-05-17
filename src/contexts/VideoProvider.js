@@ -26,7 +26,7 @@ const VideoProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [videoUrl]);
 
   useEffect(() => {
     try {
@@ -39,7 +39,7 @@ const VideoProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [categoryUrl]);
 
   return (
     <VideoContext.Provider value={{ videos, categories }}>
