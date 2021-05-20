@@ -61,7 +61,7 @@ const Library = () => {
             </div>
             <div className={styles.playlistedVideosPreview}>
               {playListPreview?.map(({ _id, title, videos }) => (
-                <Link to={`/playlists/${_id}`} className="link">
+                <Link key={_id} to={`/playlists/${_id}`} className="link">
                   <div className={styles.playlists}>
                     <div>
                       <img

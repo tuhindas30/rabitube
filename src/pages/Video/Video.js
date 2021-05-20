@@ -20,45 +20,51 @@ const Video = () => {
   const isVideoPresent = userState.liked?.some((item) => item._id === vId);
 
   const handleLikeBtn = async () => {
-    if (userState.liked.some((video) => video._id === vId)) {
-      showToast("Removing from Liked videos ...");
-      try {
-        const { data } = await axios.delete(
-          `${BASE_URL}/users/${userState._id}/liked/${vId}`
-        );
-        if (data.status === "SUCCESS") {
-          userDispatch({ type: "REMOVE_FROM_LIKED", payload: { vId } });
-          showToast("Removed from Liked videos");
+    if (isUserLoggedIn) {
+      if (userState.liked.some((video) => video._id === vId)) {
+        showToast("Removing from Liked videos ...");
+        try {
+          const { data } = await axios.delete(
+            `${BASE_URL}/users/${userState._id}/liked/${vId}`
+          );
+          if (data.status === "SUCCESS") {
+            userDispatch({ type: "REMOVE_FROM_LIKED", payload: { vId } });
+            showToast("Removed from Liked videos");
+          }
+        } catch (err) {
+          console.log(err);
+          showToast("Something went wrong. Please try again");
         }
-      } catch (err) {
-        console.log(err);
-        showToast("Something went wrong. Please try again");
+      } else {
+        showToast("Adding to Liked videos ...");
+        try {
+          const { data } = await axios.post(
+            `${BASE_URL}/users/${userState._id}/liked`,
+            {
+              id: vId,
+            }
+          );
+          if (data.status === "SUCCESS") {
+            userDispatch({
+              type: "ADD_TO_LIKED",
+              payload: { _id: vId, title: video.title, channel: video.channel },
+            });
+            showToast("Added to Liked videos");
+          }
+        } catch (err) {
+          console.log(err);
+          showToast("Something went wrong. Please try again");
+        }
       }
     } else {
-      showToast("Adding to Liked videos ...");
-      try {
-        const { data } = await axios.post(
-          `${BASE_URL}/users/${userState._id}/liked`,
-          {
-            id: vId,
-          }
-        );
-        if (data.status === "SUCCESS") {
-          userDispatch({
-            type: "ADD_TO_LIKED",
-            payload: { _id: vId, title: video.title, channel: video.channel },
-          });
-          showToast("Added to Liked videos");
-        }
-      } catch (err) {
-        console.log(err);
-        showToast("Something went wrong. Please try again");
-      }
+      alert("You must be logged in to like this video");
     }
   };
 
   const handleSaveBtn = () => {
-    setModalVisibility("show");
+    isUserLoggedIn
+      ? setModalVisibility("show")
+      : alert("You must be logged in to add video to playlist");
   };
 
   return (
@@ -85,9 +91,7 @@ const Video = () => {
             <p className={styles.titleLarge}>{video?.title}</p>
             <small>{video?.views} views</small>
             <div className={styles.savebar}>
-              <div
-                onClick={isUserLoggedIn && handleLikeBtn}
-                className={styles.savebarItem}>
+              <div onClick={handleLikeBtn} className={styles.savebarItem}>
                 <i
                   className="bi bi-hand-thumbs-up-fill icon__large"
                   style={{
@@ -97,9 +101,7 @@ const Video = () => {
                   <small>Like</small>
                 </p>
               </div>
-              <div
-                onClick={isUserLoggedIn && handleSaveBtn}
-                className={styles.savebarItem}>
+              <div onClick={handleSaveBtn} className={styles.savebarItem}>
                 <i className="bi bi-save2 icon__large"></i>
                 <p>
                   <small>Save</small>

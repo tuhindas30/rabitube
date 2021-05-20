@@ -1,6 +1,7 @@
 import styles from "./VideoCard.module.css";
 import { Link } from "react-router-dom";
 import generateThumbnail from "../../utils/generateThumbnail";
+import { useAuth } from "../../contexts/AuthProvider";
 
 const VideoCard = ({
   vId,
@@ -12,14 +13,19 @@ const VideoCard = ({
   postedOn,
   onOptionClick,
 }) => {
+  const { isUserLoggedIn } = useAuth();
   const handleShowModal = () => {
-    if (typeof onOptionClick === "function")
-      onOptionClick({
-        vId,
-        title,
-        duration,
-        channel,
-      });
+    if (isUserLoggedIn) {
+      if (typeof onOptionClick === "function")
+        onOptionClick({
+          vId,
+          title,
+          duration,
+          channel,
+        });
+    } else {
+      alert("You must log in to add video to playlists");
+    }
   };
 
   return (

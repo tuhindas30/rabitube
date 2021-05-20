@@ -1,5 +1,7 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../api/helper";
 import "../assests/css/Form.css";
 import Navbar from "../components/Navbar/Navbar";
 import { useAuth } from "../contexts/AuthProvider";
@@ -11,11 +13,21 @@ const SignIn = () => {
     password: "",
   });
   const [isSubmitDisabled, setSubmitBtn] = useState(true);
-  const { isUserLoggedIn, loginUserWithCredentials } = useAuth();
+  const { isUserLoggedIn, loginUserWithCredentials, userDispatch, setLogin } =
+    useAuth();
   const navigate = useNavigate();
   const { state } = useLocation();
+  const url = `${BASE_URL}/users`;
 
   useEffect(() => {
+    const loginStatus = JSON.parse(localStorage?.getItem("login"));
+    loginStatus?.isUserLoggedIn &&
+      (async () => {
+        const { data } = await axios.get(`${url}/${loginStatus?.userId}`);
+        console.log(data);
+        userDispatch({ type: "SET_USER_DATA", payload: { user: data.user } });
+      })();
+    loginStatus?.isUserLoggedIn && setLogin(true);
     isUserLoggedIn && navigate(state?.from ? state.from : "/");
   }, [isUserLoggedIn]);
 

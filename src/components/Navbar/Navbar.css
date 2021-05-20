@@ -9,6 +9,8 @@
 }
 
 .nav-link {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: var(--rb-very-light-grey);
 }
@@ -17,6 +19,12 @@
   display: flex;
   flex-basis: 25%;
   justify-content: space-between;
+}
+
+.nav-right button {
+  margin: 0;
+  padding: 0.5rem;
+  font-weight: bold;
 }
 
 .nav-right--large {

@@ -1,9 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { useSearch } from "../../contexts/SearchProvider";
+import { useAuth } from "../../contexts/AuthProvider";
 
 const NavbarWithSearch = ({ search = false }) => {
   const { searchInput, setSearchInput } = useSearch();
+  const { isUserLoggedIn, setLogin } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogoutBtn = () => {
+    localStorage.removeItem("login");
+    setLogin(false);
+    navigate("/");
+  };
 
   return (
     <nav className="navbar">
@@ -25,10 +34,14 @@ const NavbarWithSearch = ({ search = false }) => {
       </form>
 
       <div className="nav-right nav-right--large">
-        <i className="bi bi-search search-mobile"></i>
         <Link to="/user" className="nav-link">
           <i className="bi bi-person-circle"></i>
         </Link>
+        {isUserLoggedIn && (
+          <button onClick={handleLogoutBtn} className="btn primary">
+            Signout
+          </button>
+        )}
       </div>
     </nav>
   );
