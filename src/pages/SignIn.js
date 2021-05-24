@@ -1,10 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../api/helper";
 import "../assests/css/Form.css";
 import Navbar from "../components/Navbar/Navbar";
-import { useAuth } from "../contexts/AuthProvider";
 
 const SignIn = () => {
   const [isPassHidden, setShowPass] = useState(true);
@@ -12,42 +10,57 @@ const SignIn = () => {
     email: "",
     password: "",
   });
-  const [isSubmitDisabled, setSubmitBtn] = useState(true);
-  const { isUserLoggedIn, loginUserWithCredentials, userDispatch, setLogin } =
-    useAuth();
-  const navigate = useNavigate();
+  const [submitBtn, setSubmitBtn] = useState({
+    isDisabled: true,
+    isLoading: false,
+  });
+  const { auth } = useAuth();
   const { state } = useLocation();
-  const url = `${BASE_URL}/users`;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const loginStatus = JSON.parse(localStorage?.getItem("login"));
-    loginStatus?.isUserLoggedIn &&
-      (async () => {
-        const { data } = await axios.get(`${url}/${loginStatus?.userId}`);
-        console.log(data);
-        userDispatch({ type: "SET_USER_DATA", payload: { user: data.user } });
-      })();
-    loginStatus?.isUserLoggedIn && setLogin(true);
-    isUserLoggedIn && navigate(state?.from ? state.from : "/");
-  }, [isUserLoggedIn]);
+    auth.isUserLoggedIn && navigate(state?.from ? state.from : "/");
+  }, [auth.isUserLoggedIn]);
 
-  const handleUserVerify = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (userCredentials.email.length > 0) {
-      await loginUserWithCredentials(userCredentials);
+      setSubmitBtn((state) => ({
+        ...state,
+        isDisabled: true,
+        isLoading: true,
+      }));
+      try {
+        await auth.signin(userCredentials);
+      } catch (err) {
+        console.log(err);
+      }
+      setSubmitBtn((state) => ({
+        ...state,
+        isDisabled: false,
+        isLoading: false,
+      }));
       setUserCredentials({ email: "", password: "" });
       navigate(state?.from ? state.from : "/");
     }
   };
 
-  const handlePasswordEntry = (e) => {
+  const handleEmailInput = (e) => {
+    setUserCredentials((credentials) => ({
+      ...credentials,
+      email: e.target.value,
+    }));
+  };
+
+  const handlePasswordInput = (e) => {
     setUserCredentials((credentials) => ({
       ...credentials,
       password: e.target.value,
     }));
     if (e.target.value.length >= 8) {
-      setSubmitBtn(false);
+      setSubmitBtn((state) => ({ ...state, isDisabled: false }));
     } else {
-      setSubmitBtn(true);
+      setSubmitBtn((state) => ({ ...state, isDisabled: true }));
     }
   };
 
@@ -55,17 +68,12 @@ const SignIn = () => {
     <>
       <Navbar />
       <div className="form--container">
-        <form className="form--control" onSubmit={(e) => e.preventDefault()}>
+        <form className="form--control" onSubmit={handleSubmit}>
           <h1>Sign In</h1>
           <label htmlFor="email">
             <div>Email Address</div>
             <input
-              onChange={(e) =>
-                setUserCredentials((credentials) => ({
-                  ...credentials,
-                  email: e.target.value,
-                }))
-              }
+              onChange={handleEmailInput}
               type="email"
               name="email"
               value={userCredentials.email}
@@ -76,7 +84,7 @@ const SignIn = () => {
           <label className="form--pass" htmlFor="password">
             <div>Password</div>
             <input
-              onChange={handlePasswordEntry}
+              onChange={handlePasswordInput}
               type={isPassHidden ? "password" : "text"}
               name="password"
               value={userCredentials.password}
@@ -93,11 +101,10 @@ const SignIn = () => {
             )}
           </label>
           <button
-            onClick={handleUserVerify}
-            className={`btn primary ${isSubmitDisabled && "disabled-btn"}`}
+            className={`btn primary ${submitBtn.isDisabled && "disabled-btn"}`}
             type="submit"
-            disabled={isSubmitDisabled}>
-            Sign In
+            disabled={submitBtn.isDisabled}>
+            {submitBtn.isLoading ? "Loading ..." : "Sign In"}
           </button>
           <div className="form--footer">
             Don't have an account?{" "}

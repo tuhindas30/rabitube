@@ -1,102 +1,65 @@
-import axios from "axios";
 import { useState } from "react";
-import { BASE_URL } from "../../api/helper";
 import "./SaveVideoModal.css";
+import showToast from "../../utils/showToast";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useModal } from "../../contexts/ModalProvider";
-import showToast from "../../utils/showToast";
+import { useWatchlater } from "../../hooks/useWatchlater";
+import { usePlaylist } from "../../hooks/usePlaylist";
 
 const SaveVideoModal = ({ vId, title, duration, channel }) => {
-  const { isModalVisible, setModalVisibility } = useModal();
   const [inputPlayListName, setInputPlayListName] = useState("");
+  const { isModalVisible, setModalVisibility } = useModal();
   const { userState, userDispatch } = useAuth();
-  const url = `${BASE_URL}/users/${userState._id}/watchlater`;
+  const { addToWatchlater } = useWatchlater(userDispatch);
+  const { createNewPlaylist, addToPlaylist, removeFromPlaylist } =
+    usePlaylist(userDispatch);
 
   const handleAddToWatchLater = async () => {
     setModalVisibility("hide");
     if (!userState.watchlater?.some((video) => video._id === vId)) {
-      showToast("Wait a sec ... Adding");
+      showToast("Adding video to watch later ...");
       try {
-        const { data } = await axios.post(url, {
-          id: vId,
-        });
-        if (data.status === "SUCCESS") {
-          userDispatch({
-            type: "ADD_TO_WATCH_LATER",
-            payload: {
-              _id: vId,
-              title,
-              duration,
-              channel,
-            },
-          });
-          showToast("Added to Watch later");
-        }
+        await addToWatchlater(vId, title, duration, channel);
+        showToast("Video added to watch later");
       } catch (err) {
         console.log(err);
-        showToast(err.response.data.message);
+        showToast("Something went wrong. Please try again");
       }
     } else {
-      showToast("Video already in Watch later");
+      showToast("Video already exists in watch later");
     }
   };
 
-  const handleCreatePlaylist = async (playlistTitle) => {
-    showToast(`Creating ${playlistTitle}`);
+  const handleCreateNewPlaylist = async (e, playlistTitle) => {
+    e.preventDefault();
+    showToast(`Creating playlist ${playlistTitle}`);
     setInputPlayListName("");
     try {
-      const { data } = await axios.post(
-        `${BASE_URL}/users/${userState._id}/playlists`,
-        {
-          title: playlistTitle,
-        }
-      );
-      if (data.status === "SUCCESS") {
-        userDispatch({
-          type: "CREATE_PLAYLIST",
-          payload: { playlists: data.playlists },
-        });
-        showToast(`Created ${playlistTitle}`);
-      }
+      await createNewPlaylist(playlistTitle);
+      showToast(`Created playlist ${playlistTitle}`);
     } catch (err) {
       console.log(err);
-      showToast(err.response.data.message);
+      showToast("Something went wrong.Please try again");
     }
   };
 
-  const handleAddToPlaylist = async (pId, title) => {
+  const handleCheckbox = async (pId, title) => {
     const playlist = userState.playlists.find(
       (playlist) => playlist._id === pId
     );
     try {
       if (playlist.videos.some((video) => video._id === vId)) {
-        showToast(`Removing from ${title} ...`);
-        const { data } = await axios.delete(
-          `${BASE_URL}/users/${userState._id}/playlists/${pId}/${vId}`
-        );
-        if (data.status === "SUCCESS") {
-          userDispatch({ type: "DELETE_FROM_PLAYLIST", payload: { pId, vId } });
-          showToast(`Removed from ${title}`);
-        }
+        showToast(`Removing video from playlist ${title} ...`);
+        await removeFromPlaylist(pId, vId);
+        showToast(`Video removed from playlist ${title}`);
       } else {
-        showToast(`Wait a sec ... Adding to ${title}`);
-        const { data } = await axios.post(
-          `${BASE_URL}/users/${userState._id}/playlists/${pId}`,
-          {
-            id: vId,
-          }
-        );
-        if (data.status === "SUCCESS") {
-          userDispatch({
-            type: "ADD_TO_PLAYLIST",
-            payload: { _id: vId, pId, title, duration, channel },
-          });
-          showToast(`Added to ${title}`);
-        }
+        showToast(`Adding video to playlist ${title} ...`);
+        await addToPlaylist(pId, vId, title, duration, channel);
+        showToast(`Video added to playlist ${title}`);
       }
     } catch (err) {
       console.log(err);
-      showToast(err.response.data.message);
+      showToast("Something went wrong. Please try again");
     }
   };
 
@@ -114,7 +77,7 @@ const SaveVideoModal = ({ vId, title, duration, channel }) => {
           <strong>Save to playlist</strong>
         </div>
         <div className="modal--items">
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={(e) => handleCreateNewPlaylist(e, inputPlayListName)}>
             <input
               value={inputPlayListName}
               onChange={(e) => setInputPlayListName(e.target.value)}
@@ -123,7 +86,6 @@ const SaveVideoModal = ({ vId, title, duration, channel }) => {
               placeholder="Playlist name"
             />
             <button
-              onClick={() => handleCreatePlaylist(inputPlayListName)}
               className="btn primary btn__small"
               disabled={inputPlayListName === "" ? true : false}>
               Create
@@ -136,7 +98,7 @@ const SaveVideoModal = ({ vId, title, duration, channel }) => {
               <label>
                 <input
                   type="checkbox"
-                  onChange={() => handleAddToPlaylist(_id, title)}
+                  onChange={() => handleCheckbox(_id, title)}
                   defaultChecked={videos.some((item) => item._id === vId)}
                 />
                 <span>{title}</span>

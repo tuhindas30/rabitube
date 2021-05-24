@@ -1,66 +1,130 @@
-import axios from "axios";
 import { useState } from "react";
-import { BASE_URL } from "../api/helper";
+import { ToastContainer } from "react-toastify";
 import "../assests/css/Form.css";
 import Navbar from "../components/Navbar/Navbar";
 import { useAuth } from "../contexts/AuthProvider";
+import showToast from "../utils/showToast";
 
 const SignUp = () => {
   const [isPassHidden, setShowPass] = useState(true);
+  const { userState, auth } = useAuth();
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
-  const [isSubmitDisabled, setSubmitBtn] = useState(true);
-  const { userState } = useAuth();
-  const url = `${BASE_URL}/users/${userState._id}`;
-  const handleUpdateUser = async () => {
+  const [updateInfoBtn, setUpdateInfoBtn] = useState({
+    isDisabled: true,
+    isLoading: false,
+  });
+  const [changePasswordBtn, setChangePasswordBtn] = useState({
+    isDisabled: true,
+    isLoading: false,
+  });
+
+  const handleUpdateUser = async (e) => {
+    e.preventDefault();
+    setUpdateInfoBtn((state) => ({
+      ...state,
+      isDisabled: true,
+      isLoading: true,
+    }));
     if (userCredentials.email.length > 0) {
+      showToast("Updating user info ...");
       try {
-        const { data } = await axios.post(url, {
-          email: userCredentials.email,
-        });
-        console.log(data);
+        await auth.updateUser(userCredentials.email);
+        showToast(`Email ID updated to ${userCredentials.email}`);
         setUserCredentials((credentials) => ({ ...credentials, email: "" }));
       } catch (error) {
         console.log(error.message);
       }
+      setUpdateInfoBtn((state) => ({
+        ...state,
+        isDisabled: true,
+        isLoading: false,
+      }));
     }
   };
 
-  const handleOldPasswordEntry = (e) => {
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setChangePasswordBtn((state) => ({
+      ...state,
+      isDisabled: true,
+      isLoading: true,
+    }));
+    showToast("Updating password ...");
+    try {
+      await auth.changePassword(
+        userCredentials.oldPassword,
+        userCredentials.confirmPassword
+      );
+      showToast("Password updated");
+      setChangePasswordBtn((state) => ({
+        ...state,
+        isDisabled: true,
+        isLoading: false,
+      }));
+    } catch (err) {
+      console.log(err);
+      showToast(err.response.data.message);
+    }
+  };
+
+  const handleEmailInput = (e) => {
+    setUserCredentials((credentials) => ({
+      ...credentials,
+      email: e.target.value,
+    }));
+    if (e.target.value.length > 0) {
+      setUpdateInfoBtn((state) => ({ ...state, isDisabled: false }));
+    } else {
+      setUpdateInfoBtn((state) => ({ ...state, isDisabled: true }));
+    }
+  };
+
+  const handleOldPasswordInput = (e) => {
     setUserCredentials((credentials) => ({
       ...credentials,
       oldPassword: e.target.value,
     }));
   };
 
-  const handleNewPasswordEntry = (e) => {
+  const handleNewPasswordInput = (e) => {
     setUserCredentials((credentials) => ({
       ...credentials,
       newPassword: e.target.value,
     }));
   };
 
-  const handleConfirmPasswordEntry = (e) => {
+  const handleConfirmPasswordInput = (e) => {
     setUserCredentials((credentials) => ({
       ...credentials,
       confirmPassword: e.target.value,
     }));
     if (userCredentials.newPassword === e.target.value) {
-      setSubmitBtn(false);
+      setChangePasswordBtn((state) => ({
+        ...state,
+        isDisabled: false,
+      }));
     } else {
-      setSubmitBtn(true);
+      setChangePasswordBtn((state) => ({
+        ...state,
+        isDisabled: true,
+      }));
     }
   };
 
+  if (!("username" in userState)) {
+    return <h1 className="overlay">Loading ...</h1>;
+  }
   return (
     <>
       <Navbar />
+      <ToastContainer />
       <div className="form--container justify-space">
-        <form className="form--control" onSubmit={(e) => e.preventDefault()}>
+        <form className="form--control" onSubmit={handleUpdateUser}>
           <h1>Update Info</h1>
           <label htmlFor="email">
             <div>Username</div>
@@ -74,12 +138,7 @@ const SignUp = () => {
           <label htmlFor="email">
             <div>Email Address</div>
             <input
-              onChange={(e) =>
-                setUserCredentials((credentials) => ({
-                  ...credentials,
-                  email: e.target.value,
-                }))
-              }
+              onChange={handleEmailInput}
               type="email"
               name="email"
               value={userCredentials.email}
@@ -87,18 +146,20 @@ const SignUp = () => {
             />
           </label>
           <button
-            onClick={handleUpdateUser}
-            className="btn primary"
-            type="submit">
-            Update
+            className={`btn primary ${
+              updateInfoBtn.isDisabled && "disabled-btn"
+            }`}
+            type="submit"
+            disabled={updateInfoBtn.isDisabled}>
+            {updateInfoBtn.isLoading ? "Loading ..." : "Update"}
           </button>
         </form>
-        <form className="form--control">
+        <form className="form--control" onSubmit={handleChangePassword}>
           <h1>Change Password</h1>
           <label className="form--pass" htmlFor="password">
             <div>Old Password</div>
             <input
-              onChange={handleOldPasswordEntry}
+              onChange={handleOldPasswordInput}
               type={isPassHidden ? "password" : "text"}
               name="password"
               value={userCredentials.oldPassword}
@@ -117,7 +178,7 @@ const SignUp = () => {
           <label className="form--pass" htmlFor="password">
             <div>New Password</div>
             <input
-              onChange={handleNewPasswordEntry}
+              onChange={handleNewPasswordInput}
               type={isPassHidden ? "password" : "text"}
               name="password"
               value={userCredentials.newPassword}
@@ -136,7 +197,7 @@ const SignUp = () => {
           <label className="form--pass" htmlFor="password">
             <div>Confirm new Password</div>
             <input
-              onChange={handleConfirmPasswordEntry}
+              onChange={handleConfirmPasswordInput}
               type={isPassHidden ? "password" : "text"}
               name="password"
               value={userCredentials.confirmPassword}
@@ -153,11 +214,12 @@ const SignUp = () => {
             )}
           </label>
           <button
-            // onClick={handleUpdateUser}
-            className={`btn primary ${isSubmitDisabled && "disabled-btn"}`}
+            className={`btn primary ${
+              changePasswordBtn.isDisabled && "disabled-btn"
+            }`}
             type="submit"
-            disabled={isSubmitDisabled}>
-            Change Password
+            disabled={changePasswordBtn.isDisabled}>
+            {changePasswordBtn.isLoading ? "Loading ..." : "Change Password"}
           </button>
         </form>
       </div>

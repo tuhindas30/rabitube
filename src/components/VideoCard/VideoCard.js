@@ -13,9 +13,10 @@ const VideoCard = ({
   postedOn,
   onOptionClick,
 }) => {
-  const { isUserLoggedIn } = useAuth();
+  const { auth } = useAuth();
+
   const handleShowModal = () => {
-    if (isUserLoggedIn) {
+    if (auth.isUserLoggedIn) {
       if (typeof onOptionClick === "function")
         onOptionClick({
           vId,

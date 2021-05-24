@@ -1,40 +1,73 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import registerUser from "../api/user";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthProvider";
 import "../assests/css/Form.css";
 import Navbar from "../components/Navbar/Navbar";
 
 const SignUp = () => {
   const [isPassHidden, setShowPass] = useState(true);
+  const navigate = useNavigate();
+  const { auth } = useAuth();
+  const { state } = useLocation();
+  const [submitBtn, setSubmitBtn] = useState({
+    isDisabled: true,
+    isLoading: false,
+  });
   const [userCredentials, setUserCredentials] = useState({
     username: "",
     email: "",
     password: "",
   });
-  const [isSubmitDisabled, setSubmitBtn] = useState(true);
-  const navigate = useNavigate();
 
-  const handleUserRegister = async () => {
-    if (userCredentials.email.length > 0) {
-      await registerUser(
-        userCredentials.username,
-        userCredentials.email,
-        userCredentials.password
-      );
+  useEffect(() => {
+    auth.isUserLoggedIn && navigate(state?.from ? state.from : "/");
+  }, [auth.isUserLoggedIn]);
+
+  const handleSumbit = async (e) => {
+    e.preventDefault();
+    setSubmitBtn((state) => ({ ...state, isDisabled: true, isLoading: true }));
+    if (
+      userCredentials.username.length > 0 &&
+      userCredentials.email.length > 0
+    ) {
+      try {
+        await auth.signup(userCredentials);
+      } catch (err) {
+        console.log(err);
+      }
       setUserCredentials({ username: "", email: "", password: "" });
+      setSubmitBtn((state) => ({
+        ...state,
+        isDisabled: false,
+        isLoading: false,
+      }));
       navigate("/signin");
     }
   };
 
-  const handlePasswordEntry = (e) => {
+  const handleUsernameInput = (e) => {
+    setUserCredentials((credentials) => ({
+      ...credentials,
+      username: e.target.value,
+    }));
+  };
+
+  const handleEmailInput = (e) => {
+    setUserCredentials((credentials) => ({
+      ...credentials,
+      email: e.target.value,
+    }));
+  };
+
+  const handlePasswordInput = (e) => {
     setUserCredentials((credentials) => ({
       ...credentials,
       password: e.target.value,
     }));
     if (e.target.value.length >= 8) {
-      setSubmitBtn(false);
+      setSubmitBtn((state) => ({ ...state, isDisabled: false }));
     } else {
-      setSubmitBtn(true);
+      setSubmitBtn((state) => ({ ...state, isDisabled: true }));
     }
   };
 
@@ -42,17 +75,12 @@ const SignUp = () => {
     <>
       <Navbar />
       <div className="form--container">
-        <form className="form--control" onSubmit={(e) => e.preventDefault()}>
+        <form className="form--control" onSubmit={handleSumbit}>
           <h1>Sign Up</h1>
           <label htmlFor="email">
             <div>Username</div>
             <input
-              onChange={(e) =>
-                setUserCredentials((credentials) => ({
-                  ...credentials,
-                  username: e.target.value,
-                }))
-              }
+              onChange={handleUsernameInput}
               value={userCredentials.username}
               type="text"
               name="username"
@@ -63,12 +91,7 @@ const SignUp = () => {
           <label htmlFor="email">
             <div>Email Address</div>
             <input
-              onChange={(e) =>
-                setUserCredentials((credentials) => ({
-                  ...credentials,
-                  email: e.target.value,
-                }))
-              }
+              onChange={handleEmailInput}
               type="email"
               name="email"
               value={userCredentials.email}
@@ -78,7 +101,7 @@ const SignUp = () => {
           <label className="form--pass" htmlFor="password">
             <div>Password</div>
             <input
-              onChange={handlePasswordEntry}
+              onChange={handlePasswordInput}
               type={isPassHidden ? "password" : "text"}
               name="password"
               value={userCredentials.password}
@@ -95,17 +118,16 @@ const SignUp = () => {
             )}
           </label>
           <button
-            onClick={handleUserRegister}
-            className={`btn primary ${isSubmitDisabled && "disabled-btn"}`}
+            className={`btn primary ${submitBtn.isDisabled && "disabled-btn"}`}
             type="submit"
-            disabled={isSubmitDisabled}>
-            Sign Up
+            disabled={submitBtn.isDisabled}>
+            {submitBtn.isLoading ? "Loading ..." : "Sign Up"}
           </button>
           <div className="form--footer">
             Already a user?{" "}
             <Link to="/signin" className="link">
               Sign In
-            </Link>{" "}
+            </Link>
           </div>
         </form>
       </div>

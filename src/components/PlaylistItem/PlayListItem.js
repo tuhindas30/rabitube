@@ -1,27 +1,25 @@
 import styles from "./PlaylistItem.module.css";
 import { Link } from "react-router-dom";
+import showToast from "../../utils/showToast";
 import { useAuth } from "../../contexts/AuthProvider";
-import axios from "axios";
-import { BASE_URL } from "../../api/helper";
+import { usePlaylist } from "../../hooks/usePlaylist";
 
 const PlayListItem = ({ pId, title }) => {
   const { userState, userDispatch } = useAuth();
+  const { deletePlaylist } = usePlaylist(userDispatch);
 
   const playListSize = userState.playlists.find(
     (playlist) => playlist._id === pId
   ).videos.length;
 
-  const handleDeletePlaylistBtn = async () => {
+  const handleDeletePlaylist = async (playlistId) => {
+    showToast(`Deleting playlist ${title} ...`);
     try {
-      const { data } = await axios.delete(
-        `${BASE_URL}/users/${userState._id}/playlists/${pId}`
-      );
-      console.log(data);
-      if (data.status === "SUCCESS") {
-        userDispatch({ type: "DELETE_PLAYLIST", payload: { pId } });
-      }
+      await deletePlaylist(playlistId);
+      showToast(`Deleted playlist ${title}`);
     } catch (err) {
       console.log(err);
+      showToast("Something went wrong. Please try again");
     }
   };
 
@@ -37,7 +35,7 @@ const PlayListItem = ({ pId, title }) => {
       </Link>
       <div
         className={styles.btnDeletePlaylist}
-        onClick={handleDeletePlaylistBtn}>
+        onClick={() => handleDeletePlaylist(pId)}>
         <strong>DELETE</strong>
       </div>
     </div>

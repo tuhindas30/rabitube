@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   createContext,
   useContext,
@@ -7,28 +6,47 @@ import {
   useState,
 } from "react";
 import userReducer from "../reducer/userReducer";
-import { BASE_URL } from "../api/helper";
+import * as authApi from "../api/auth";
+import * as userApi from "../api/user";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [isUserLoggedIn, setLogin] = useState(false);
   const [userState, userDispatch] = useReducer(userReducer, {});
-  const url = `${BASE_URL}/users`;
+  const auth = useProvideAuth(userDispatch);
+  const loginStatus = JSON.parse(localStorage?.getItem("login"));
 
   useEffect(() => {
-    const loginStatus = JSON.parse(localStorage?.getItem("login"));
     loginStatus?.isUserLoggedIn &&
       (async () => {
-        const { data } = await axios.get(`${url}/${loginStatus?.userId}`);
+        const data = await userApi.getUser();
         userDispatch({ type: "SET_USER_DATA", payload: { user: data.user } });
       })();
-    loginStatus?.isUserLoggedIn && setLogin(true);
-  }, [url]);
+    loginStatus?.isUserLoggedIn && auth.setLogin(true);
+  }, []);
 
-  const loginUserWithCredentials = async (userCredentials) => {
+  return (
+    <AuthContext.Provider
+      value={{
+        userState,
+        userDispatch,
+        auth,
+      }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+const useAuth = () => {
+  return useContext(AuthContext);
+};
+
+const useProvideAuth = (userDispatch) => {
+  const [isUserLoggedIn, setLogin] = useState(false);
+
+  const signin = async ({ email, password }) => {
     try {
-      const { data } = await axios.post(`${url}/signin`, userCredentials);
+      const data = await authApi.signin(email, password);
       if (data.status === "SUCCESS") {
         setLogin(true);
         localStorage?.setItem(
@@ -40,27 +58,43 @@ const AuthProvider = ({ children }) => {
         );
         userDispatch({ type: "SET_USER_DATA", payload: { user: data.user } });
       }
-    } catch (error) {
-      console.log(error.message);
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  return (
-    <AuthContext.Provider
-      value={{
-        isUserLoggedIn,
-        setLogin,
-        loginUserWithCredentials,
-        userState,
-        userDispatch,
-      }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+  const signup = async ({ username, email, password }) => {
+    try {
+      await authApi.signup(username, email, password);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-const useAuth = () => {
-  return useContext(AuthContext);
+  const changePassword = async (oldPassword, newPassword) => {
+    try {
+      await authApi.changePassword(oldPassword, newPassword);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateUser = async (emailId) => {
+    try {
+      await userApi.updateUser(emailId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return {
+    isUserLoggedIn,
+    setLogin,
+    signin,
+    signup,
+    changePassword,
+    updateUser,
+  };
 };
 
 export { AuthProvider, useAuth };
