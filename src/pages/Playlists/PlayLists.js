@@ -6,6 +6,13 @@ import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
 const PlayLists = () => {
   const { userState } = useAuth();
 
+  if (!("playlists" in userState)) {
+    return (
+      <DefaultWithoutSearch>
+        <h1 className="overlay">Loading ...</h1>
+      </DefaultWithoutSearch>
+    );
+  }
   return (
     <>
       <DefaultWithoutSearch>

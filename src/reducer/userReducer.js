@@ -4,14 +4,14 @@ const userReducer = (state, { type, payload }) => {
       return { ...payload.user };
     case "ADD_TO_WATCH_LATER":
       return { ...state, watchlater: [...state.watchlater, payload] };
-    case "ADD_TO_LIKED":
+    case "ADD_TO_LIKED_PLAYLIST":
       return { ...state, liked: [...state.liked, payload] };
-    case "REMOVE_FROM_LIKED":
+    case "REMOVE_FROM_LIKED_PLAYLIST":
       const updatedLiked = state.liked.filter(
         (video) => video._id !== payload.vId
       );
       return { ...state, liked: updatedLiked };
-    case "CREATE_PLAYLIST":
+    case "CREATE_NEW_PLAYLIST":
       return {
         ...state,
         playlists: [...payload.playlists],
@@ -29,7 +29,7 @@ const userReducer = (state, { type, payload }) => {
         return playlist;
       });
       return { ...state, playlists: updatedPlaylist };
-    case "DELETE_FROM_PLAYLIST":
+    case "REMOVE_FROM_PLAYLIST":
       const updatePlaylist = state.playlists.map((playlist) => {
         if (playlist._id === payload.pId) {
           const videos = playlist.videos.filter(
@@ -40,7 +40,7 @@ const userReducer = (state, { type, payload }) => {
         return playlist;
       });
       return { ...state, playlists: updatePlaylist };
-    case "REMOVE_VIDEO":
+    case "REMOVE_FROM_WATCH_LATER":
       const updatedWatchlater = state.watchlater.filter(
         (video) => video._id !== payload.vId
       );

@@ -5,12 +5,12 @@ import { useAuth } from "../../contexts/AuthProvider";
 
 const NavbarWithSearch = ({ search = false }) => {
   const { searchInput, setSearchInput } = useSearch();
-  const { isUserLoggedIn, setLogin } = useAuth();
+  const { auth } = useAuth();
   const navigate = useNavigate();
 
   const handleLogoutBtn = () => {
     localStorage.removeItem("login");
-    setLogin(false);
+    auth.setLogin(false);
     navigate("/");
   };
 
@@ -37,7 +37,7 @@ const NavbarWithSearch = ({ search = false }) => {
         <Link to="/user" className="nav-link">
           <i className="bi bi-person-circle"></i>
         </Link>
-        {isUserLoggedIn && (
+        {auth.isUserLoggedIn && (
           <button onClick={handleLogoutBtn} className="btn primary">
             Signout
           </button>

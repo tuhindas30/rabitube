@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthProvider";
 import styles from "./Library.module.css";
 import PlayListItem from "../../components/PlaylistItem/PlayListItem";
 import generateThumbnail from "../../utils/generateThumbnail";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
-import { useAuth } from "../../contexts/AuthProvider";
 
 const Library = () => {
   const { userState } = useAuth();
@@ -12,6 +12,13 @@ const Library = () => {
   const playListPreview = userState.playlists?.slice(0, 4);
   const likePreview = userState.liked?.slice(0, 4);
 
+  if (!("liked" in userState)) {
+    return (
+      <DefaultWithoutSearch>
+        <h1 className="overlay">Loading ...</h1>
+      </DefaultWithoutSearch>
+    );
+  }
   return (
     <>
       <DefaultWithoutSearch>
@@ -40,7 +47,6 @@ const Library = () => {
                     views={views}
                     channel={channel}
                     postedOn={postedOn}
-                    // onOptionClick={handleOptionClick}
                   />
                 )
               )}
@@ -104,7 +110,6 @@ const Library = () => {
                     views={views}
                     channel={channel}
                     postedOn={postedOn}
-                    // onOptionClick={handleOptionClick}
                   />
                 )
               )}

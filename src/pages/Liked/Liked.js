@@ -1,20 +1,18 @@
 import { useState } from "react";
-import { BASE_URL } from "../../api/helper";
+import { useAuth } from "../../contexts/AuthProvider";
+import { useModal } from "../../contexts/ModalProvider";
 import styles from "./Liked.module.css";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import VideoList from "../../components/VideoList/VideoList";
-import { useAuth } from "../../contexts/AuthProvider";
-import { useModal } from "../../contexts/ModalProvider";
 import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
 import generateThumbnail from "../../utils/generateThumbnail";
 
 const Liked = () => {
-  const { userState, userDispatch } = useAuth();
+  const { userState } = useAuth();
   const { isDeleteModalVisible, setDeleteModalVisibility } = useModal();
   const [modalData, setModalData] = useState({
     vId: "",
   });
-  const url = `${BASE_URL}/users/${userState._id}/liked`;
   const likeThumbnail = userState.liked?.map((video) => video._id)[0];
 
   const handleOptionClick = (videoObj) => {
@@ -22,6 +20,13 @@ const Liked = () => {
     setDeleteModalVisibility("show");
   };
 
+  if (!("liked" in userState)) {
+    return (
+      <DefaultWithoutSearch>
+        <h1 className="overlay">Loading ...</h1>
+      </DefaultWithoutSearch>
+    );
+  }
   return (
     <div className={styles.likedItems}>
       <DefaultWithoutSearch>
@@ -64,12 +69,7 @@ const Liked = () => {
         </div>
         <div className="liked--videos">
           {isDeleteModalVisible === "show" && (
-            <DeleteModal
-              type="REMOVE_FROM_LIKED"
-              url={url}
-              dispatcher={userDispatch}
-              {...modalData}
-            />
+            <DeleteModal type="REMOVE_FROM_LIKED_PLAYLIST" {...modalData} />
           )}
 
           {userState.liked?.map(({ _id, title, channel }) => (

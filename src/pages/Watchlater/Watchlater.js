@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BASE_URL } from "../../api/helper";
 import styles from "./Watchlater.module.css";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import VideoList from "../../components/VideoList/VideoList";
@@ -10,11 +9,10 @@ import generateThumbnail from "../../utils/generateThumbnail";
 
 const Watchlater = () => {
   const { isDeleteModalVisible, setDeleteModalVisibility } = useModal();
+  const { userState } = useAuth();
   const [modalData, setModalData] = useState({
     vId: "",
   });
-  const { userState, userDispatch } = useAuth();
-  const url = `${BASE_URL}/users/${userState._id}/watchlater`;
 
   const handleOptionClick = (videoObj) => {
     setModalData(videoObj);
@@ -24,6 +22,13 @@ const Watchlater = () => {
     (video) => video._id
   )[0];
 
+  if (!("watchlater" in userState)) {
+    return (
+      <DefaultWithoutSearch>
+        <h1 className="overlay">Loading ...</h1>
+      </DefaultWithoutSearch>
+    );
+  }
   return (
     <div className={styles.watchlaterVideolist}>
       <DefaultWithoutSearch>
@@ -40,12 +45,7 @@ const Watchlater = () => {
           )}
         </div>
         {isDeleteModalVisible === "show" && (
-          <DeleteModal
-            type="REMOVE_VIDEO"
-            url={url}
-            dispatcher={userDispatch}
-            {...modalData}
-          />
+          <DeleteModal type="REMOVE_FROM_WATCH_LATER" {...modalData} />
         )}
         <div className="playlist-bar">
           <div className={styles.watchlaterTitle}>

@@ -7,16 +7,14 @@ import generateThumbnail from "../../utils/generateThumbnail";
 import styles from "./PlaylistedVideos.module.css";
 import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
 import { useAuth } from "../../contexts/AuthProvider";
-import { BASE_URL } from "../../api/helper";
 
 const PlayListedVideos = () => {
-  const { userState, userDispatch } = useAuth();
+  const { userState } = useAuth();
   const { isDeleteModalVisible, setDeleteModalVisibility } = useModal();
   const { pId } = useParams();
   const [modalData, setModalData] = useState({
     vId: "",
   });
-  const url = `${BASE_URL}/users/${userState._id}/playlists/${pId}`;
   const playlist = userState.playlists?.find(
     (playlist) => playlist._id === pId
   );
@@ -28,17 +26,18 @@ const PlayListedVideos = () => {
 
   const playLisThumbnail = playlist?.videos.map((video) => video._id)[0];
 
+  if (!("playlists" in userState)) {
+    return (
+      <DefaultWithoutSearch>
+        <h1 className="overlay">Loading ...</h1>
+      </DefaultWithoutSearch>
+    );
+  }
   return (
     <>
       <DefaultWithoutSearch>
         {isDeleteModalVisible === "show" && (
-          <DeleteModal
-            type="DELETE_FROM_PLAYLIST"
-            url={url}
-            dispatcher={userDispatch}
-            {...modalData}
-            pId={pId}
-          />
+          <DeleteModal type="REMOVE_FROM_PLAYLIST" {...modalData} pId={pId} />
         )}
         <div className={styles.playlistedVideos}>
           <div className={styles.playlistDetails}>
