@@ -1,26 +1,42 @@
 import axios from "axios";
-import { BASE_URL, handleFetchApiResponse } from "./helper";
+import { BASE_URL, handleApiError } from "./helper";
 
 const userId = JSON.parse(localStorage?.getItem("login"))?.userId;
 const url = `${BASE_URL}/auth`;
 
 const signin = async (email, password) => {
-  const response = await axios.post(`${url}/signin`, { email, password });
-  return await handleFetchApiResponse(response);
+  try {
+    const { data } = await axios.post(`${url}/signin`, { email, password });
+    return data;
+  } catch (err) {
+    return handleApiError(err);
+  }
 };
 
 const signup = async (username, email, password) => {
-  const response = axios.post(`${url}/signup`, { username, email, password });
-  return await handleFetchApiResponse(response);
+  try {
+    const { data } = await axios.post(`${url}/signup`, {
+      username,
+      email,
+      password,
+    });
+    return data;
+  } catch (err) {
+    return handleApiError(err);
+  }
 };
 
 const changePassword = async (oldPassword, newPassword) => {
-  const response = await axios.post(`${url}/change-password`, {
-    userId: userId,
-    oldPassword,
-    newPassword,
-  });
-  return await handleFetchApiResponse(response);
+  try {
+    const { data } = await axios.post(`${url}/change-password`, {
+      userId: userId,
+      oldPassword,
+      newPassword,
+    });
+    return data;
+  } catch (err) {
+    return handleApiError(err);
+  }
 };
 
 export { signin, signup, changePassword };

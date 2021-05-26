@@ -25,19 +25,19 @@ const SignUp = () => {
 
   const handleUpdateUser = async (e) => {
     e.preventDefault();
+    showToast("Updating info ...");
     setUpdateInfoBtn((state) => ({
       ...state,
       isDisabled: true,
       isLoading: true,
     }));
     if (userCredentials.email.length > 0) {
-      showToast("Updating user info ...");
       try {
         await auth.updateUser(userCredentials.email);
-        showToast(`Email ID updated to ${userCredentials.email}`);
+        showToast("User info updated");
         setUserCredentials((credentials) => ({ ...credentials, email: "" }));
-      } catch (error) {
-        console.log(error.message);
+      } catch (err) {
+        showToast(err.message);
       }
       setUpdateInfoBtn((state) => ({
         ...state,
@@ -49,12 +49,12 @@ const SignUp = () => {
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
+    showToast("Updating password ...");
     setChangePasswordBtn((state) => ({
       ...state,
       isDisabled: true,
       isLoading: true,
     }));
-    showToast("Updating password ...");
     try {
       await auth.changePassword(
         userCredentials.oldPassword,
@@ -66,9 +66,14 @@ const SignUp = () => {
         isDisabled: true,
         isLoading: false,
       }));
+      setUserCredentials((state) => ({
+        ...state,
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      }));
     } catch (err) {
-      console.log(err);
-      showToast(err.response.data.message);
+      showToast(err.message);
     }
   };
 

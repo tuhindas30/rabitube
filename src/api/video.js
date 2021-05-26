@@ -1,11 +1,15 @@
 import axios from "axios";
-import { BASE_URL, handleFetchApiResponse } from "./helper";
+import { BASE_URL, handleApiError } from "./helper";
 
 const url = `${BASE_URL}/videos`;
 
 const getAllVideos = async () => {
-  const response = await axios.get(`${url}`);
-  return await handleFetchApiResponse(response);
+  try {
+    const { data } = await axios.get(`${url}`);
+    return data;
+  } catch (err) {
+    return handleApiError(err);
+  }
 };
 
 export { getAllVideos };

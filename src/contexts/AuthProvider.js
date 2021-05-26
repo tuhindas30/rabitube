@@ -8,6 +8,7 @@ import {
 import userReducer from "../reducer/userReducer";
 import * as authApi from "../api/auth";
 import * as userApi from "../api/user";
+import showToast from "../utils/showToast";
 
 const AuthContext = createContext();
 
@@ -59,7 +60,7 @@ const useProvideAuth = (userDispatch) => {
         userDispatch({ type: "SET_USER_DATA", payload: { user: data.user } });
       }
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   };
 
@@ -67,7 +68,7 @@ const useProvideAuth = (userDispatch) => {
     try {
       await authApi.signup(username, email, password);
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   };
 
@@ -75,15 +76,16 @@ const useProvideAuth = (userDispatch) => {
     try {
       await authApi.changePassword(oldPassword, newPassword);
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   };
 
   const updateUser = async (emailId) => {
+    showToast("Updating user info ...");
     try {
       await userApi.updateUser(emailId);
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   };
 
@@ -92,8 +94,8 @@ const useProvideAuth = (userDispatch) => {
     setLogin,
     signin,
     signup,
-    changePassword,
     updateUser,
+    changePassword,
   };
 };
 
