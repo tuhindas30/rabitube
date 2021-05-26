@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { useSearch } from "../../contexts/SearchProvider";
 import { useAuth } from "../../contexts/AuthProvider";
 
-const NavbarWithSearch = ({ search = false }) => {
+const Navbar = ({ search = false }) => {
   const { searchInput, setSearchInput } = useSearch();
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -46,4 +46,4 @@ const NavbarWithSearch = ({ search = false }) => {
     </nav>
   );
 };
-export default NavbarWithSearch;
+export default Navbar;

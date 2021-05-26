@@ -19,29 +19,31 @@ const Video = () => {
   const video = videos && videos.find((item) => item._id === vId);
   const isVideoPresent = userState.liked?.some((item) => item._id === vId);
 
+  const checkLoggedInStatus = async () => {
+    auth.isUserLoggedIn
+      ? await handleLikeBtn()
+      : alert("You must be logged in to like this video");
+  };
+
   const handleLikeBtn = async () => {
-    if (auth.isUserLoggedIn) {
-      if (userState.liked.some((video) => video._id === vId)) {
-        showToast("Removing video from liked playlist ...");
-        try {
-          await removeFromLike(vId);
-          showToast("Video removed from liked playlist");
-        } catch (err) {
-          console.log(err);
-          showToast("Something went wrong. Please try again");
-        }
-      } else {
-        showToast("Adding video to liked playlist ...");
-        try {
-          await addToLike(vId, video.title, video.channel);
-          showToast("Video added to liked playlist");
-        } catch (err) {
-          console.log(err);
-          showToast("Something went wrong. Please try again");
-        }
+    if (userState.liked.some((video) => video._id === vId)) {
+      showToast("Removing video from liked playlist ...");
+      try {
+        await removeFromLike(vId);
+        showToast("Video removed from liked playlist");
+      } catch (err) {
+        console.log(err);
+        showToast("Something went wrong. Please try again");
       }
     } else {
-      alert("You must be logged in to like this video");
+      showToast("Adding video to liked playlist ...");
+      try {
+        await addToLike(vId, video.title, video.channel);
+        showToast("Video added to liked playlist");
+      } catch (err) {
+        console.log(err);
+        showToast("Something went wrong. Please try again");
+      }
     }
   };
 
@@ -81,7 +83,7 @@ const Video = () => {
           <p className={styles.titleLarge}>{video?.title}</p>
           <small>{video?.views} views</small>
           <div className={styles.savebar}>
-            <div onClick={handleLikeBtn} className={styles.savebarItem}>
+            <div onClick={checkLoggedInStatus} className={styles.savebarItem}>
               <i
                 className="bi bi-hand-thumbs-up-fill icon__large"
                 style={{

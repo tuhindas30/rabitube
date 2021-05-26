@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthProvider";
+import { useModal } from "../../contexts/ModalProvider";
 import styles from "./Watchlater.module.css";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import VideoList from "../../components/VideoList/VideoList";
-import { useAuth } from "../../contexts/AuthProvider";
-import { useModal } from "../../contexts/ModalProvider";
 import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
 import generateThumbnail from "../../utils/generateThumbnail";
 
