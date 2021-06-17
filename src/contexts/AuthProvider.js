@@ -1,102 +1,124 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import userReducer from "../reducer/userReducer";
+import { createContext, useContext, useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
 import * as authApi from "../api/auth";
 import * as userApi from "../api/user";
+import {
+  setupAuthExceptionHandler,
+  setupAuthHeader,
+  setupCancelToken,
+} from "../utils/helper";
+import { useNavigate } from "react-router";
 import showToast from "../utils/showToast";
+import axios from "axios";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [userState, userDispatch] = useReducer(userReducer, {});
-  const auth = useProvideAuth(userDispatch);
-  const loginStatus = JSON.parse(localStorage?.getItem("login"));
+  const token = JSON.parse(localStorage?.getItem("__auth_token")) || null;
+  const user = JSON.parse(localStorage?.getItem("__auth_user")) || null;
+  const [isUserLoading, setUserLoading] = useState(false);
+  const [tokenExpiry, setTokenExpiry] = useState(null);
+  const navigate = useNavigate();
+  const source = axios.CancelToken.source();
+  setupCancelToken(source);
+  token && setupAuthHeader(token);
 
   useEffect(() => {
-    loginStatus?.isUserLoggedIn &&
-      (async () => {
-        const data = await userApi.getUser();
-        userDispatch({ type: "SET_USER_DATA", payload: { user: data.user } });
-      })();
-    loginStatus?.isUserLoggedIn && auth.setLogin(true);
+    setupAuthExceptionHandler(signout, navigate);
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      try {
+        setUserLoading(true);
+        const decodedToken = jwt_decode(token);
+        setTokenExpiry(decodedToken.exp);
+        if (decodedToken.exp < Date.now() / 1000) {
+          throw new Error("Session Expired");
+        }
+      } catch (err) {
+        alert(`${err.message}\nPlease sign-in again`);
+        signout();
+        navigate("/signin");
+      } finally {
+        setUserLoading(false);
+      }
+    }
+    return () => source.cancel("user unmounted");
+  }, [token]);
+
+  const getToken = () => {
+    if (tokenExpiry && tokenExpiry < Date.now() / 1000) {
+      alert(`Session Expired\nPlease sign-in again`);
+      signout();
+      navigate("/signin");
+    }
+    return token;
+  };
+
+  const signup = async ({ username, email, password }) => {
+    await authApi.signup(username, email, password);
+  };
+
+  const signin = async ({ email, password }) => {
+    const response = await authApi.signin(email, password);
+    if (response.status === "SUCCESS") {
+      localStorage?.setItem("__auth_user", JSON.stringify(response.data.user));
+      localStorage?.setItem(
+        "__auth_token",
+        JSON.stringify(response.data.token)
+      );
+      setupAuthHeader(response.data.token);
+    }
+  };
+
+  const signout = () => {
+    localStorage.removeItem("__auth_token");
+    localStorage.removeItem("__auth_user");
+    setTokenExpiry(null);
+    setupAuthHeader(null);
+  };
+
+  const changePassword = async (oldPassword, newPassword) => {
+    try {
+      setUserLoading(true);
+      await authApi.changePassword(oldPassword, newPassword);
+      showToast("Password updated successfully");
+      signout();
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setUserLoading(false);
+    }
+  };
+
+  const updateUser = async (emailId) => {
+    setUserLoading(true);
+    const response = await userApi.updateUserById(user.id, emailId);
+    if (response.status === "SUCCESS") {
+      localStorage?.setItem("__auth_user", JSON.stringify(response.data));
+      setUserLoading(false);
+      showToast("Email updated successfully");
+    }
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        userState,
-        userDispatch,
-        auth,
+        isUserLoading,
+        user,
+        token: getToken(),
+        signup,
+        signin,
+        signout,
+        changePassword,
+        updateUser,
       }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-const useAuth = () => {
-  return useContext(AuthContext);
-};
-
-const useProvideAuth = (userDispatch) => {
-  const [isUserLoggedIn, setLogin] = useState(false);
-
-  const signin = async ({ email, password }) => {
-    try {
-      const data = await authApi.signin(email, password);
-      if (data.status === "SUCCESS") {
-        setLogin(true);
-        localStorage?.setItem(
-          "login",
-          JSON.stringify({
-            isUserLoggedIn: true,
-            userId: data.user._id,
-          })
-        );
-        userDispatch({ type: "SET_USER_DATA", payload: { user: data.user } });
-      }
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  };
-
-  const signup = async ({ username, email, password }) => {
-    try {
-      await authApi.signup(username, email, password);
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  };
-
-  const changePassword = async (oldPassword, newPassword) => {
-    try {
-      await authApi.changePassword(oldPassword, newPassword);
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  };
-
-  const updateUser = async (emailId) => {
-    showToast("Updating user info ...");
-    try {
-      await userApi.updateUser(emailId);
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  };
-
-  return {
-    isUserLoggedIn,
-    setLogin,
-    signin,
-    signup,
-    updateUser,
-    changePassword,
-  };
-};
+const useAuth = () => useContext(AuthContext);
 
 export { AuthProvider, useAuth };

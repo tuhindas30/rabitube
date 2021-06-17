@@ -3,18 +3,21 @@ import { createContext, useContext, useState } from "react";
 const ModalContext = createContext();
 
 const ModalProvider = ({ children }) => {
-  const [isModalVisible, setModalVisibility] = useState("hide");
-  const [isDeleteModalVisible, setDeleteModalVisibility] = useState("hide");
+  const [modalData, setModalData] = useState("");
+  const [isModalVisible, setModalVisibility] = useState(false);
+
+  const toggleModalVisibility = () => {
+    setModalVisibility((visibility) => !visibility);
+  };
 
   return (
     <ModalContext.Provider
       value={{
         isModalVisible,
-        setModalVisibility,
-        isDeleteModalVisible,
-        setDeleteModalVisibility,
-      }}
-    >
+        toggleModalVisibility,
+        modalData,
+        setModalData,
+      }}>
       {children}
     </ModalContext.Provider>
   );

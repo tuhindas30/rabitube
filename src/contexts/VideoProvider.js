@@ -1,41 +1,51 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { setupCancelToken } from "../utils/helper";
 import * as videoApi from "../api/video";
 import * as categoryApi from "../api/category";
+import axios from "axios";
 
 const VideoContext = createContext();
 
 const VideoProvider = ({ children }) => {
+  const [isVideosLoading, setVideosLoading] = useState(false);
   const [videos, setVideos] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  const source = axios.CancelToken.source();
+  setupCancelToken(source);
+
   useEffect(() => {
-    try {
-      (async () => {
-        const data = await videoApi.getAllVideos();
-        if (data.status === "SUCCESS") {
-          setVideos(data.videos);
-        }
-      })();
-    } catch (err) {
-      console.log(err);
-    }
+    (async () => {
+      try {
+        setVideosLoading(true);
+        const { data } = await videoApi.getAllVideos();
+        setVideos(data);
+      } catch (err) {
+        setVideos([]);
+      } finally {
+        setVideosLoading(false);
+      }
+    })();
+    return () => source.cancel("products unmounted");
   }, []);
 
   useEffect(() => {
-    try {
-      (async () => {
-        const data = await categoryApi.getAllCategories();
-        if (data.status === "SUCCESS") {
-          setCategories(data.categories);
-        }
-      })();
-    } catch (err) {
-      console.log(err);
-    }
+    (async () => {
+      try {
+        setVideosLoading(true);
+        const { data } = await categoryApi.getAllCategories();
+        setCategories(data);
+      } catch (err) {
+        setCategories([]);
+      } finally {
+        setVideosLoading(false);
+      }
+    })();
+    return () => source.cancel("products unmounted");
   }, []);
 
   return (
-    <VideoContext.Provider value={{ videos, categories }}>
+    <VideoContext.Provider value={{ isVideosLoading, videos, categories }}>
       {children}
     </VideoContext.Provider>
   );
