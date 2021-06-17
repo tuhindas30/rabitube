@@ -1,49 +1,46 @@
-import { Link, useNavigate } from "react-router-dom";
-import "./Navbar.css";
-import { useSearch } from "../../contexts/SearchProvider";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
+import styles from "./Navbar.module.css";
+import { FaUserCircle } from "react-icons/fa";
 
-const Navbar = ({ search = false }) => {
-  const { searchInput, setSearchInput } = useSearch();
-  const { auth } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogoutBtn = () => {
-    localStorage.removeItem("login");
-    auth.setLogin(false);
-    navigate("/");
-  };
+const Navbar = ({ search = false, searchInput = "", setSearchInput }) => {
+  const { token, signout } = useAuth();
 
   return (
-    <nav className="navbar">
-      <Link to="/" className="nav-link">
-        <div className="nav-left">
-          <div className="nav-brand">
-            <h1>RabiTube</h1>
-          </div>
+    <nav className={`navbar ${styles.navbar}`}>
+      <div className={`nav-left ${styles.navLeft}`}>
+        <NavLink to="/" className={styles.navLinks}>
+          <h1>RabiTube</h1>
+        </NavLink>
+      </div>
+      {search && (
+        <div className={styles.searchDesktop}>
+          <input
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="search-box"
+            type="text"
+            placeholder="Search for videos"
+          />
         </div>
-      </Link>
-
-      <form className={search ? "search-desktop" : "search-desktop-none"}>
-        <input
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          className="search-box"
-          type="text"
-        />
-      </form>
-
-      <div className="nav-right nav-right--large">
-        <Link to="/user" className="nav-link">
-          <i className="bi bi-person-circle"></i>
-        </Link>
-        {auth.isUserLoggedIn && (
-          <button onClick={handleLogoutBtn} className="btn primary">
-            Signout
+      )}
+      <div className={`nav-right ${styles.navRight}`}>
+        <NavLink
+          to="/user"
+          className={`badge-icon flex-icon ${styles.navLinks}`}
+          activeClassName={styles.active}>
+          <FaUserCircle />
+        </NavLink>
+        {token && (
+          <button
+            className={`btn secondary ${styles.signoutBtn}`}
+            onClick={signout}>
+            SIGNOUT
           </button>
         )}
       </div>
     </nav>
   );
 };
+
 export default Navbar;
