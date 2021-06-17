@@ -1,11 +1,25 @@
 .watchlaterVideolist {
-  margin-top: 4rem;
+  margin-top: 5rem;
   margin-bottom: 4rem;
   padding: 0 1rem;
 }
 
-.watchlaterVideosCount {
-  padding-bottom: 1rem;
+.watchlaterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.noVideosFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  text-align: center;
+  height: 80vh;
 }
 
 @media screen and (min-width: 768px) {
@@ -13,15 +27,7 @@
     padding: 1rem 0;
   }
 
-  .watchlaterImage {
-    width: 100%;
-  }
-
-  .watchlaterTitle {
-    font-size: 1.5rem;
-  }
-
-  .watchlaterDetails {
+  .watchlaterHeader {
     display: none;
   }
 }

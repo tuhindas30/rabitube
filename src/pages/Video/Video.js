@@ -2,120 +2,140 @@ import { useParams } from "react-router";
 import { useModal } from "../../contexts/ModalProvider";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useVideo } from "../../contexts/VideoProvider";
-import { useLike } from "../../hooks/useLike";
-import styles from "./Video.module.css";
+import { useLike } from "../../contexts/LikeProvider";
+import ReactPlayer from "react-player/lazy";
+import Modal from "../../components/Modal/Modal";
+import ModalForm from "../../components/ModalForm/ModalForm";
 import generateVideoLink from "../../utils/generateVideoLink";
-import SaveVideoModal from "../../components/SaveVideoModal/SaveVideoModal";
-import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
-import showToast from "../../utils/showToast";
+import styles from "./Video.module.css";
+import { AiFillLike } from "react-icons/ai";
+import { RiPlayListAddFill, RiShareForwardFill } from "react-icons/ri";
+import { ReactComponent as EmptyVideosSvg } from "../../assets/images/EmptyVideosImage.svg";
+import { useState } from "react";
 
 const Video = () => {
-  const { vId } = useParams();
-  const { videos } = useVideo();
-  const { isModalVisible, setModalVisibility } = useModal();
-  const { userState, userDispatch, auth } = useAuth();
-  const { addToLike, removeFromLike } = useLike(userDispatch);
+  const { videoId } = useParams();
+  const { isVideosLoading, videos } = useVideo();
+  const { isModalVisible, setModalData, toggleModalVisibility } = useModal();
+  const { token } = useAuth();
+  const { likeState, addToLikedPlaylist, removeFromLikedPlaylist } = useLike();
+  const [type, setType] = useState("");
 
-  const video = videos && videos.find((item) => item._id === vId);
-  const isVideoPresent = userState.liked?.some((item) => item._id === vId);
+  const video = videos.find((item) => item._id === videoId);
+  const isVideoPresent = likeState.some(({ video }) => video._id === videoId);
 
-  const checkLoggedInStatus = async () => {
-    auth.isUserLoggedIn
-      ? await handleLikeBtn()
-      : alert("You must be logged in to like this video");
-  };
-
-  const handleLikeBtn = async () => {
-    if (userState.liked.some((video) => video._id === vId)) {
-      showToast("Removing video from liked playlist ...");
-      try {
-        await removeFromLike(vId);
-        showToast("Video removed from liked playlist");
-      } catch (err) {
-        console.log(err);
-        showToast("Something went wrong. Please try again");
-      }
+  const handleLike = async (videoId) => {
+    if (likeState.some(({ video }) => video._id === videoId)) {
+      await removeFromLikedPlaylist(videoId);
     } else {
-      showToast("Adding video to liked playlist ...");
-      try {
-        await addToLike(vId, video.title, video.channel);
-        showToast("Video added to liked playlist");
-      } catch (err) {
-        console.log(err);
-        showToast("Something went wrong. Please try again");
-      }
+      await addToLikedPlaylist(videoId);
     }
   };
 
-  const handleSaveBtn = () => {
-    auth.isUserLoggedIn
-      ? setModalVisibility("show")
-      : alert("You must be logged in to add video to playlist");
+  const handleSave = (videoId) => {
+    setType("SAVE_VIDEO");
+    setModalData(videoId);
+    toggleModalVisibility();
   };
 
-  if (videos.length <= 0) {
+  const handleShare = (videoId) => {
+    setType("SHARE_VIDEO");
+    setModalData(videoId);
+    toggleModalVisibility();
+  };
+
+  if (isVideosLoading) {
+    return <h1 className="overlay">Loading ...</h1>;
+  }
+
+  if (videos.length === 0) {
     return (
-      <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
-      </DefaultWithoutSearch>
+      <div className={styles.noVideosFound}>
+        <EmptyVideosSvg width="80%" />
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            padding: "1rem 2rem",
+          }}>
+          No videos found! Try refreshing the page :)
+        </p>
+      </div>
     );
   }
   return (
-    <DefaultWithoutSearch>
-      <div className={styles.video}>
-        {isModalVisible === "show" && (
-          <SaveVideoModal
-            vId={vId}
-            title={video?.title}
-            channel={video?.channel}
-          />
-        )}
-        <div className={styles.videoContainer}>
-          <iframe
-            src={generateVideoLink(vId)}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen></iframe>
+    <div className={styles.video}>
+      <div className={styles.playerWrapper}>
+        <ReactPlayer
+          url={generateVideoLink(videoId)}
+          width="100%"
+          height="100%"
+          className={styles.reactPlayer}
+          playing={true}
+          controls={true}
+          pip={true}
+          stopOnUnmount={false}
+        />
+      </div>
+      <div className={styles.videoDetails}>
+        <div style={{ fontSize: "0.9rem" }}>#{video.category.title}</div>
+        <div style={{ fontSize: "1.2rem" }}>{video.title}</div>
+        <div>{video.viewCount} views</div>
+        <div className={styles.savebar}>
+          {token && (
+            <>
+              <div
+                onClick={() => handleLike(videoId)}
+                className={`flex-icon ${styles.savebarItem}`}>
+                <AiFillLike
+                  className="icon__large"
+                  style={{
+                    color: isVideoPresent
+                      ? "var(--rb-primary)"
+                      : "var(--rb-black)",
+                  }}
+                />
+                <div style={{ fontSize: "0.9rem" }}>Like</div>
+              </div>
+              <div
+                onClick={() => handleSave(videoId)}
+                className={`flex-icon ${styles.savebarItem}`}>
+                <RiPlayListAddFill className="icon__large" />
+                <div style={{ fontSize: "0.9rem" }}>Save</div>
+              </div>
+            </>
+          )}
+          <div
+            onClick={() => handleShare(videoId)}
+            className={`flex-icon ${styles.savebarItem}`}>
+            <RiShareForwardFill className="icon__large" />
+            <div style={{ fontSize: "0.9rem" }}>Share</div>
+          </div>
         </div>
-        <div className={styles.videoDetails}>
-          <small>#{video?.category.title}</small>
-          <p className={styles.titleLarge}>{video?.title}</p>
-          <small>{video?.views} views</small>
-          <div className={styles.savebar}>
-            <div onClick={checkLoggedInStatus} className={styles.savebarItem}>
-              <i
-                className="bi bi-hand-thumbs-up-fill icon__large"
-                style={{
-                  color: isVideoPresent ? "var(--rb-primary)" : "black",
-                }}></i>
-              <p>
-                <small>Like</small>
-              </p>
-            </div>
-            <div onClick={handleSaveBtn} className={styles.savebarItem}>
-              <i className="bi bi-save2 icon__large"></i>
-              <p>
-                <small>Save</small>
-              </p>
+        <div className={styles.channelDescription}>
+          <img
+            className="image round"
+            src={video.avatarUrl}
+            alt="channel avatar"
+          />
+          <div style={{ marginLeft: "1rem" }}>
+            <div>{video.channelName}</div>
+            <div style={{ fontSize: "0.9rem" }}>
+              {video.subscriberCount} subcribers
             </div>
           </div>
-          <div className={styles.channelDescription}>
-            <div className="avatar">
-              <img className="image round" src={video?.avatar} alt="avatar" />
-            </div>
-            <div className={styles.title}>
-              <p>{video?.channel}</p>
-              <small>{video?.subscriber} subcribers</small>
-            </div>
-          </div>
-          <div className={styles.description}>
-            <p>Published on {video?.postedOn}</p>
-            {video?.description}
-          </div>
+        </div>
+        <div className={styles.description}>
+          <div>Published on {video.uploadDate}</div>
+          {video.description}
         </div>
       </div>
-    </DefaultWithoutSearch>
+      {isModalVisible && (
+        <Modal handleClose={toggleModalVisibility}>
+          <ModalForm formType={type} />
+        </Modal>
+      )}
+    </div>
   );
 };
 export default Video;
