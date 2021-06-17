@@ -1,7 +1,25 @@
-.likedItems {
-  margin-top: 4rem;
+.likedVideos {
+  margin-top: 5rem;
   margin-bottom: 4rem;
   padding: 0 1rem;
+}
+
+.playlistHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.noVideosFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  text-align: center;
+  height: 80vh;
 }
 
 @media screen and (min-width: 768px) {
@@ -9,15 +27,7 @@
     padding: 1rem 0;
   }
 
-  .playlistImage {
-    width: 100%;
-  }
-
-  .likedTitle {
-    font-size: 1.5rem;
-  }
-
-  .likedDetails {
+  .playlistHeader {
     display: none;
   }
 }

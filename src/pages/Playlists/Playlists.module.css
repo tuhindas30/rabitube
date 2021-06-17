@@ -4,12 +4,28 @@
   padding: 0 1rem;
 }
 
-.playlistsTitle {
+.playlistsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
   padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.playlistsEmpty {
-  padding: 0 1rem;
+.newPlaylistButton {
+  padding: 0.2rem 0.5rem;
+}
+
+.noPlaylistFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  text-align: center;
+  height: 80vh;
 }
 
 @media screen and (min-width: 768px) {

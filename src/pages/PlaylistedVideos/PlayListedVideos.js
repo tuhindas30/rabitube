@@ -1,93 +1,97 @@
-import { useState } from "react";
 import { useParams } from "react-router";
-import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import VideoList from "../../components/VideoList/VideoList";
 import { useModal } from "../../contexts/ModalProvider";
 import generateThumbnail from "../../utils/generateThumbnail";
 import styles from "./PlaylistedVideos.module.css";
-import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
-import { useAuth } from "../../contexts/AuthProvider";
+import { usePlaylist } from "../../contexts/PlaylistProvider";
+import { Link } from "react-router-dom";
+import { ReactComponent as EmptyVideosSvg } from "../../assets/images/EmptyVideosImage.svg";
+import Modal from "../../components/Modal/Modal";
+import ModalForm from "../../components/ModalForm/ModalForm";
 
 const PlayListedVideos = () => {
-  const { userState } = useAuth();
-  const { isDeleteModalVisible, setDeleteModalVisibility } = useModal();
-  const { pId } = useParams();
-  const [modalData, setModalData] = useState({
-    vId: "",
-  });
-  const playlist = userState.playlists?.find(
-    (playlist) => playlist._id === pId
+  const { isPlaylistLoading, playlistState, removeFromPlaylist } =
+    usePlaylist();
+  const { isModalVisible, setModalData, toggleModalVisibility } = useModal();
+  const { playlistId } = useParams();
+  const playlist = playlistState.find(
+    (playlist) => playlist._id === playlistId
   );
 
-  const handleOptionClick = (videoObj) => {
-    setModalData(videoObj);
-    setDeleteModalVisibility("show");
+  const playlistThumbnail = playlist?.items.map(({ video }) => video._id)[0];
+
+  const handleOptionClick = (videoId) => {
+    setModalData(videoId);
+    toggleModalVisibility();
   };
 
-  const playLisThumbnail = playlist?.videos.map((video) => video._id)[0];
+  const handleRemoveVideo = async (videoId) => {
+    await removeFromPlaylist(playlistId, videoId);
+    toggleModalVisibility();
+  };
 
-  if (!("playlists" in userState)) {
+  if (isPlaylistLoading) {
+    return <h1 className="overlay">Loading ...</h1>;
+  }
+
+  if (playlist?.items.length === 0) {
     return (
-      <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
-      </DefaultWithoutSearch>
+      <div className={styles.noVideosFound}>
+        <EmptyVideosSvg width="80%" />
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            padding: "1rem 2rem",
+          }}>
+          No videos found!
+        </p>
+        <Link to="/" className="btn links btn-link">
+          Add videos
+        </Link>
+      </div>
     );
   }
-  return (
-    <>
-      <DefaultWithoutSearch>
-        {isDeleteModalVisible === "show" && (
-          <DeleteModal type="REMOVE_FROM_PLAYLIST" {...modalData} pId={pId} />
-        )}
-        <div className={styles.playlistedVideos}>
-          <div className={styles.playlistDetails}>
-            <div className={styles.playlistTitle}>
-              <strong>{playlist?.title}</strong>
-            </div>
-            {playlist?.videos.length > 0 ? (
-              <div className="info__grey">
-                <small>
-                  {playlist.videos.length}{" "}
-                  {playlist.videos.length > 1 ? "videos" : "video"}
-                </small>
-              </div>
-            ) : (
-              <div>There are no videos in this playlist yet.</div>
-            )}
-          </div>
-          <div className="playlist-bar">
-            <div className={styles.playlistTitle}>
-              <div className={styles.playlistImage}>
-                <img
-                  className="image"
-                  src={generateThumbnail(playLisThumbnail)}
-                  alt=""
-                />
-              </div>
-              <strong>{playlist?.title}</strong>
-              {playlist?.videos.length > 0 ? (
-                <div className="info__grey">
-                  {playlist.videos.length}{" "}
-                  {playlist.videos.length > 1 ? "videos" : "video"}
-                </div>
-              ) : (
-                <div>There are no videos in this playlist yet.</div>
-              )}
-            </div>
-          </div>
 
-          {playlist?.videos.map(({ _id, title, channel }) => (
-            <VideoList
-              key={_id}
-              vId={_id}
-              title={title}
-              channel={channel}
-              onOptionClick={handleOptionClick}
-            />
-          ))}
+  return (
+    <div className={styles.playlistedVideos}>
+      <div className={styles.playlistHeader}>
+        <div style={{ fontWeight: "bold" }}>{playlist?.title}</div>
+        <div style={{ color: "var(--rb-dark-grey)", fontSize: "1.2rem" }}>
+          {playlist?.items.length}{" "}
+          {playlist?.items.length > 1 ? "videos" : "video"}
         </div>
-      </DefaultWithoutSearch>
-    </>
+      </div>
+      <div className="playlist-bar">
+        <img
+          className="image"
+          src={generateThumbnail(playlistThumbnail)}
+          alt="video thumbnail"
+        />
+        <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+          {playlist?.title}
+        </div>
+        <div className="grey-text">
+          {playlist?.items.length}{" "}
+          {playlist?.items.length > 1 ? "videos" : "video"}
+        </div>
+      </div>
+      {playlist?.items.map(({ video }) => (
+        <VideoList
+          key={video._id}
+          video={video}
+          onOptionClick={handleOptionClick}
+        />
+      ))}
+      {isModalVisible && (
+        <Modal handleClose={toggleModalVisibility}>
+          <ModalForm
+            formType="REMOVE_VIDEO"
+            handleRemoveVideo={handleRemoveVideo}
+          />
+        </Modal>
+      )}
+    </div>
   );
 };
 export default PlayListedVideos;

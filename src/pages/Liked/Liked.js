@@ -1,88 +1,87 @@
-import { useState } from "react";
-import { useAuth } from "../../contexts/AuthProvider";
 import { useModal } from "../../contexts/ModalProvider";
 import styles from "./Liked.module.css";
-import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import Modal from "../../components/Modal/Modal";
+import ModalForm from "../../components/ModalForm/ModalForm";
 import VideoList from "../../components/VideoList/VideoList";
-import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
 import generateThumbnail from "../../utils/generateThumbnail";
+import { useLike } from "../../contexts/LikeProvider";
+import { Link } from "react-router-dom";
+import { ReactComponent as EmptyVideosSvg } from "../../assets/images/EmptyVideosImage.svg";
 
 const Liked = () => {
-  const { userState } = useAuth();
-  const { isDeleteModalVisible, setDeleteModalVisibility } = useModal();
-  const [modalData, setModalData] = useState({
-    vId: "",
-  });
-  const likeThumbnail = userState.liked?.map((video) => video._id)[0];
+  const { isLikeLoading, likeState, removeFromLikedPlaylist } = useLike();
+  const { isModalVisible, setModalData, toggleModalVisibility } = useModal();
+  const likeThumbnail = likeState.map(({ video }) => video._id)[0];
 
-  const handleOptionClick = (videoObj) => {
-    setModalData(videoObj);
-    setDeleteModalVisibility("show");
+  const handleOptionClick = (videoId) => {
+    setModalData(videoId);
+    toggleModalVisibility();
   };
 
-  if (!("liked" in userState)) {
+  const handleRemoveVideo = async (videoId) => {
+    await removeFromLikedPlaylist(videoId);
+    toggleModalVisibility();
+  };
+
+  if (isLikeLoading) {
+    return <h1 className="overlay">Loading ...</h1>;
+  }
+
+  if (likeState.length === 0) {
     return (
-      <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
-      </DefaultWithoutSearch>
+      <div className={styles.noVideosFound}>
+        <EmptyVideosSvg width="80%" />
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            padding: "1rem 2rem",
+          }}>
+          No videos found!
+        </p>
+        <Link to="/" className="btn links btn-link">
+          Add videos
+        </Link>
+      </div>
     );
   }
-  return (
-    <div className={styles.likedItems}>
-      <DefaultWithoutSearch>
-        <div className={styles.likedDetails}>
-          <div className={styles.likedTitle}>
-            <strong>Liked Videos</strong>
-          </div>
-          {userState.liked?.length > 0 ? (
-            <div className="info__grey">
-              <small>
-                {userState.liked?.length}{" "}
-                {userState.liked?.length > 1 ? "videos" : "video"}
-              </small>
-            </div>
-          ) : (
-            <div>There are no videos in this playlist yet.</div>
-          )}
-        </div>
-        <div className="playlist-bar">
-          <div className={styles.likedTitle}>
-            <div className={styles.playlistImage}>
-              <img
-                className="image"
-                src={generateThumbnail(likeThumbnail)}
-                alt=""
-              />
-            </div>
-            <strong>Liked Videos</strong>
-            {userState.liked?.length > 0 ? (
-              <div className="info__grey">
-                <small>
-                  {userState.liked?.length}{" "}
-                  {userState.liked?.length > 1 ? "videos" : "video"}
-                </small>
-              </div>
-            ) : (
-              <div>There are no videos in this playlist yet.</div>
-            )}
-          </div>
-        </div>
-        <div className="liked--videos">
-          {isDeleteModalVisible === "show" && (
-            <DeleteModal type="REMOVE_FROM_LIKED_PLAYLIST" {...modalData} />
-          )}
 
-          {userState.liked?.map(({ _id, title, channel }) => (
-            <VideoList
-              key={_id}
-              vId={_id}
-              title={title}
-              channel={channel}
-              onOptionClick={handleOptionClick}
-            />
-          ))}
+  return (
+    <div className={styles.likedVideos}>
+      <div className={styles.playlistHeader}>
+        <div style={{ fontWeight: "bold" }}>Liked Videos</div>
+        <div style={{ color: "var(--rb-dark-grey)", fontSize: "1.2rem" }}>
+          {likeState.length} {likeState.length > 1 ? "videos" : "video"}
         </div>
-      </DefaultWithoutSearch>
+      </div>
+      <div className="playlist-bar">
+        <img
+          className="image"
+          src={generateThumbnail(likeThumbnail)}
+          alt="video thumbnail"
+        />
+        <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+          Liked Videos
+        </div>
+        <div className="grey-text">
+          {likeState.length} {likeState.length > 1 ? "videos" : "video"}
+        </div>
+      </div>
+      {likeState.map(({ video }) => (
+        <VideoList
+          key={video._id}
+          video={video}
+          onOptionClick={handleOptionClick}
+        />
+      ))}
+      {isModalVisible && (
+        <Modal handleClose={toggleModalVisibility}>
+          <ModalForm
+            formType="REMOVE_VIDEO"
+            handleRemoveVideo={handleRemoveVideo}
+          />
+        </Modal>
+      )}
     </div>
   );
 };
