@@ -1,0 +1,19 @@
+.modal {
+  text-align: center;
+  padding: 1rem;
+  width: 80%;
+  z-index: 15;
+  border-radius: 0.5rem;
+}
+
+.modalButton {
+  display: block;
+  margin: 1rem auto;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    width: 30%;
+  }
+}

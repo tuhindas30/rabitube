@@ -1,0 +1,22 @@
+.newPlaylistButton {
+  display: block;
+  margin: 1rem auto;
+  width: 100%;
+}
+
+.titleInput {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.checkBoxInput {
+  margin-right: 1rem;
+}
+
+.deletePlaylistButton {
+  color: var(--rb-very-light-grey);
+  border: 0.1rem solid var(--rb-grey);
+  background-color: var(--rb-red);
+  padding: 0.2rem 0.5rem;
+}
