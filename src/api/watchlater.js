@@ -1,13 +1,21 @@
 import axios from "axios";
 import { BASE_URL, handleApiError } from "./helper";
 
-const userId = JSON.parse(localStorage.getItem("login"))?.userId;
-const url = `${BASE_URL}/users/${userId}/watchlater`;
+const url = `${BASE_URL}/users/watchlater`;
+
+const getWatchlater = async () => {
+  try {
+    const { data } = await axios.get(`${url}`);
+    return data;
+  } catch (err) {
+    return handleApiError(err);
+  }
+};
 
 const addToWatchlater = async (videoId) => {
   try {
     const { data } = await axios.post(`${url}`, {
-      id: videoId,
+      videoId,
     });
     return data;
   } catch (err) {
@@ -24,4 +32,4 @@ const removeFromWatchlater = async (videoId) => {
   }
 };
 
-export { addToWatchlater, removeFromWatchlater };
+export { getWatchlater, addToWatchlater, removeFromWatchlater };

@@ -1,7 +1,11 @@
-export const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-export const handleApiError = (err) => {
+const handleApiError = (err) => {
+  if (process.env.NODE_ENV === "development") {
+    console.log(err);
+  }
   const { data } = err.response;
-  console.log(err);
   throw new Error(data.message);
 };
+
+export { BASE_URL, handleApiError };

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { BASE_URL, handleApiError } from "./helper";
 
-const url = `${BASE_URL}/users/liked`;
+const url = `${BASE_URL}/users/history`;
 
-const getLikedPlaylist = async () => {
+const getHistory = async () => {
   try {
     const { data } = await axios.get(`${url}`);
     return data;
@@ -12,7 +12,7 @@ const getLikedPlaylist = async () => {
   }
 };
 
-const addToLikedPlaylist = async (videoId) => {
+const addToHistory = async (videoId) => {
   try {
     const { data } = await axios.post(`${url}`, {
       videoId,
@@ -23,7 +23,7 @@ const addToLikedPlaylist = async (videoId) => {
   }
 };
 
-const removeFromLikedPlaylist = async (videoId) => {
+const removeFromHistory = async (videoId) => {
   try {
     const { data } = await axios.delete(`${url}/${videoId}`);
     return data;
@@ -32,4 +32,13 @@ const removeFromLikedPlaylist = async (videoId) => {
   }
 };
 
-export { getLikedPlaylist, addToLikedPlaylist, removeFromLikedPlaylist };
+const removeUserHistory = async () => {
+  try {
+    const { data } = await axios.delete(`${url}`);
+    return data;
+  } catch (err) {
+    return handleApiError(err);
+  }
+};
+
+export { getHistory, addToHistory, removeFromHistory, removeUserHistory };

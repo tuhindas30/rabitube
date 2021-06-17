@@ -1,33 +1,41 @@
 import axios from "axios";
 import { BASE_URL, handleApiError } from "./helper";
 
-const userId = JSON.parse(localStorage.getItem("login"))?.userId;
-const url = `${BASE_URL}/users/${userId}/playlists`;
+const url = `${BASE_URL}/users/playlists`;
 
-const createNewPlaylist = async (playlistTitle) => {
+const getPlaylists = async () => {
   try {
-    const { data } = await axios.post(`${url}`, {
-      title: playlistTitle,
-    });
+    const { data } = await axios.get(`${url}`);
     return data;
   } catch (err) {
     return handleApiError(err);
   }
 };
 
-const deletePlaylist = async (playlistId) => {
+const createNewPlaylist = async (title) => {
   try {
-    const { data } = axios.delete(`${url}/${playlistId}`);
+    const { data } = await axios.post(`${url}`, {
+      title,
+    });
     return data;
   } catch (err) {
-    return handleApiError(err);
+    handleApiError(err);
+  }
+};
+
+const deletePlaylist = async (playlistId) => {
+  try {
+    const { data } = await axios.delete(`${url}/${playlistId}`);
+    return data;
+  } catch (err) {
+    handleApiError(err);
   }
 };
 
 const addToPlaylist = async (playlistId, videoId) => {
   try {
     const { data } = await axios.post(`${url}/${playlistId}`, {
-      id: videoId,
+      videoId,
     });
     return data;
   } catch (err) {
@@ -44,4 +52,10 @@ const removeFromPlaylist = async (playlistId, videoId) => {
   }
 };
 
-export { createNewPlaylist, deletePlaylist, addToPlaylist, removeFromPlaylist };
+export {
+  getPlaylists,
+  createNewPlaylist,
+  deletePlaylist,
+  addToPlaylist,
+  removeFromPlaylist,
+};

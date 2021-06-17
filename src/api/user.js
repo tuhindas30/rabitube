@@ -1,19 +1,9 @@
 import axios from "axios";
 import { BASE_URL, handleApiError } from "../api/helper";
 
-const userId = JSON.parse(localStorage?.getItem("login"))?.userId;
 const url = `${BASE_URL}/users`;
 
-const registerUser = async (username, email, password) => {
-  try {
-    const { data } = await axios.post(url, { username, email, password });
-    return data;
-  } catch (err) {
-    return handleApiError(err);
-  }
-};
-
-const getUser = async () => {
+const getUserById = async (userId) => {
   try {
     const { data } = await axios.get(`${url}/${userId}`);
     return data;
@@ -22,7 +12,7 @@ const getUser = async () => {
   }
 };
 
-const updateUser = async (emailId) => {
+const updateUserById = async (userId, emailId) => {
   try {
     const { data } = await axios.post(`${url}/${userId}`, {
       email: emailId,
@@ -33,5 +23,13 @@ const updateUser = async (emailId) => {
   }
 };
 
-export default registerUser;
-export { getUser, updateUser };
+const deleteUserById = async (userId) => {
+  try {
+    const { data } = await axios.delete(`${url}/${userId}`);
+    return data;
+  } catch (err) {
+    return handleApiError(err);
+  }
+};
+
+export { getUserById, updateUserById, deleteUserById };
