@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const showToast = (toastMessage) => {
   return toast.dark(toastMessage, {
-    position: "bottom-left",
+    position: "bottom-center",
     autoClose: 4000,
     hideProgressBar: true,
     closeOnClick: true,
