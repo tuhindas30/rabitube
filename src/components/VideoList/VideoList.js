@@ -2,36 +2,37 @@ import generateThumbnail from "../../utils/generateThumbnail";
 import truncate from "../../utils/truncate";
 import styles from "./VideoList.module.css";
 import { Link } from "react-router-dom";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { useHistory } from "../../contexts/HistoryProvider";
 
-const VideoList = ({ vId, title, channel, onOptionClick }) => {
-  const handleShowModal = () => {
-    if (typeof onOptionClick === "function")
-      onOptionClick({
-        vId,
-      });
+const VideoList = ({ video, onOptionClick }) => {
+  const { addToHistory } = useHistory();
+
+  const handleVideoClick = async (videoId) => {
+    await addToHistory(videoId);
   };
 
   return (
-    <div key={vId} className={styles.videosContainer}>
-      <Link to={`/video/${vId}`} className="link">
-        <div>
-          <img className="image" src={generateThumbnail(vId)} alt="" />
+    <div className={styles.videoContainer}>
+      <Link
+        onClick={() => handleVideoClick(video._id)}
+        to={`/video/${video._id}`}
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+        className={`link`}>
+        <img
+          className="image"
+          src={generateThumbnail(video._id)}
+          alt="video thumbnail"
+        />
+        <div style={{ marginLeft: "0.5rem" }}>
+          <div style={{ fontWeight: "bold" }}>{truncate(video.title, 40)}</div>
+          <div className="grey-text">{video.channelName}</div>
         </div>
       </Link>
-      <div className={`${styles.videoInfo} ${styles.containerGrid}`}>
-        <Link to={`/video/${vId}`} className="link">
-          <div>
-            <p className={styles.infoTitle}>
-              <strong>{truncate(title, 40)}</strong>
-            </p>
-            <small className="info__grey">{channel}</small>
-          </div>
-        </Link>
-        <div
-          onClick={handleShowModal}
-          className={`${styles.containerGrid} ${styles.fitContent}`}>
-          <i className="bi bi-three-dots-vertical"></i>
-        </div>
+      <div
+        onClick={() => onOptionClick(video._id)}
+        className={styles.optionMenuContainer}>
+        <BsThreeDotsVertical />
       </div>
     </div>
   );

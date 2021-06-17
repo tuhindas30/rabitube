@@ -1,65 +1,60 @@
 import styles from "./VideoCard.module.css";
 import { Link } from "react-router-dom";
 import generateThumbnail from "../../utils/generateThumbnail";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { useAuth } from "../../contexts/AuthProvider";
+import { useHistory } from "../../contexts/HistoryProvider";
 
-const VideoCard = ({
-  vId,
-  avatar,
-  title,
-  duration,
-  views,
-  channel,
-  postedOn,
-  onOptionClick,
-}) => {
-  const { auth } = useAuth();
+const VideoCard = ({ video, onOptionClick }) => {
+  const { token } = useAuth();
+  const { addToHistory } = useHistory();
 
-  const handleShowModal = () => {
-    if (auth.isUserLoggedIn) {
-      if (typeof onOptionClick === "function")
-        onOptionClick({
-          vId,
-          title,
-          duration,
-          channel,
-        });
-    } else {
-      alert("You must log in to add video to playlists");
-    }
+  const handleVideoClick = async (videoId) => {
+    await addToHistory(videoId);
   };
 
   return (
     <div className={styles.videoItem}>
-      <Link className="link" to={`/video/${vId}`}>
-        <img className="image" src={generateThumbnail(vId)} alt="thumbnail" />
-        <div className={styles.videoDuration}>{duration}</div>
+      <Link
+        onClick={() => handleVideoClick(video._id)}
+        to={`/video/${video._id}`}
+        className="link">
+        <img
+          className="image"
+          src={generateThumbnail(video._id)}
+          alt="video thumbnail"
+        />
+        <div className={styles.videoDuration}>{video.duration}</div>
       </Link>
       <div className={styles.itemInfoContainer}>
-        <Link className="link" to={`/video/${vId}`}>
-          <div className={styles.infoAvatar}>
-            <div className={styles.avatar}>
-              <img className="image round" src={avatar} alt="avatar" />
-            </div>
+        <Link
+          onClick={() => handleVideoClick(video._id)}
+          to={`/video/${video._id}`}
+          className="link"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "0.3fr 1fr",
+            width: "100%",
+          }}>
+          <div className={styles.avatar}>
+            <img className="image round" src={video.avatarUrl} alt="avatar" />
+          </div>
+          <div style={{ padding: "0.5rem" }}>
+            <p style={{ marginBottom: "0.5rem", fontWeight: "bold" }}>
+              {video.title}
+            </p>
+            <p className="grey-text">{video.channelName}</p>
+            <p className="grey-text">{video.viewCount} views</p>
+            <p className="grey-text">{video.uploadDate}</p>
           </div>
         </Link>
-        <Link className="link" to={`/video/${vId}`}>
-          <div className={styles.infoDetailContainer}>
-            <p className="detail--title">
-              <strong>{title}</strong>
-            </p>
-            <p className={styles.detailExtra}>
-              <span>{channel}</span>
-              <i className="bi bi-dot"></i>
-              <span>{views} views</span>
-              <i className="bi bi-dot"></i>
-              {postedOn}
-            </p>
+        {token && (
+          <div
+            onClick={() => onOptionClick(video._id)}
+            className={styles.optionMenuContainer}>
+            <BsThreeDotsVertical />
           </div>
-        </Link>
-        <div onClick={handleShowModal} className={styles.optionMenuContainer}>
-          <i className="bi bi-three-dots-vertical"></i>
-        </div>
+        )}
       </div>
     </div>
   );

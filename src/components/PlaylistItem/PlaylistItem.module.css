@@ -2,20 +2,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
   border: 1px solid var(--rb-grey);
 }
 
 .linkLarge {
-  width: 80%;
+  padding: 1rem;
+  display: block;
+  width: 100%;
 }
 
 .playlistItem .itemVideoCount {
   color: var(--rb-dark-grey);
 }
 
-.btnDeletePlaylist {
-  cursor: pointer;
+.deletePlaylistButton {
+  color: var(--rb-very-light-grey);
+  border: 0.1rem solid var(--rb-grey);
+  background-color: var(--rb-red);
+  padding: 0.5rem 0.7rem;
+  margin: 1rem;
 }
 
 @media screen and (min-width: 768px) {

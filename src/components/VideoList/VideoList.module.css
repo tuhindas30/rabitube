@@ -1,29 +1,25 @@
-.videosContainer {
+.videoContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 0.1fr;
   margin-bottom: 1rem;
 }
 
-.videosContainer:hover {
+.videoContainer:hover {
+  transition: 0.2s;
   background-color: var(--rb-grey);
 }
 
-.containerGrid {
-  padding: 0 0.5rem;
-}
-
-.fitContent {
-  height: fit-content;
+.optionMenuContainer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
   cursor: pointer;
-}
-
-.videoInfo {
-  display: flex;
+  height: fit-content;
 }
 
 @media screen and (min-width: 768px) {
-  .videosContainer {
-    grid-template-columns: 0.8fr 1fr;
+  .videoContainer {
+    grid-template-columns: 2fr 0.2fr;
     margin-left: 39.2rem;
     padding: 1rem;
     margin-bottom: 0;

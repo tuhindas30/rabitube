@@ -1,43 +1,32 @@
 import styles from "./PlaylistItem.module.css";
 import { Link } from "react-router-dom";
-import showToast from "../../utils/showToast";
-import { useAuth } from "../../contexts/AuthProvider";
-import { usePlaylist } from "../../hooks/usePlaylist";
+import { usePlaylist } from "../../contexts/PlaylistProvider";
+import { IoMdTrash } from "react-icons/io";
 
-const PlayListItem = ({ pId, title }) => {
-  const { userState, userDispatch } = useAuth();
-  const { deletePlaylist } = usePlaylist(userDispatch);
+const PlayListItem = ({ playlistId, title }) => {
+  const { playlistState, deletePlaylist } = usePlaylist();
 
-  const playListSize = userState.playlists.find(
-    (playlist) => playlist._id === pId
-  ).videos.length;
-
-  const handleDeletePlaylist = async (playlistId) => {
-    showToast(`Deleting playlist ${title} ...`);
-    try {
-      await deletePlaylist(playlistId);
-      showToast(`Deleted playlist ${title}`);
-    } catch (err) {
-      console.log(err);
-      showToast("Something went wrong. Please try again");
-    }
-  };
+  const playListSize = playlistState.find(
+    (playlist) => playlist._id === playlistId
+  ).items.length;
 
   return (
     <div className={styles.playlistItem}>
-      <Link className={`${styles.linkLarge} link`} to={`/playlists/${pId}`}>
-        <div>{title}</div>
+      <Link
+        className={`${styles.linkLarge} link`}
+        to={`/playlists/${playlistId}`}>
+        {title}
         {playListSize > 0 && (
           <div className={styles.itemVideoCount}>
             {playListSize} {playListSize > 1 ? "videos" : "video"}
           </div>
         )}
       </Link>
-      <div
-        className={styles.btnDeletePlaylist}
-        onClick={() => handleDeletePlaylist(pId)}>
-        <strong>DELETE</strong>
-      </div>
+      <button
+        onClick={async () => await deletePlaylist(playlistId)}
+        className={`btn flex-icon ${styles.deletePlaylistButton}`}>
+        <IoMdTrash />
+      </button>
     </div>
   );
 };
