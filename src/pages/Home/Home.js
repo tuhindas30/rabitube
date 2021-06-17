@@ -1,25 +1,15 @@
-import { useState } from "react";
 import { useParams } from "react-router";
 import { useModal } from "../../contexts/ModalProvider";
-import { useSearch } from "../../contexts/SearchProvider";
 import { useVideo } from "../../contexts/VideoProvider";
-import Categorybar from "../../components/Categorybar/Categorybar";
 import getSearchVideos from "../../utils/getSearchVideos";
 import styles from "./Home.module.css";
-import DefaultWithSearch from "../../layouts/DefaultWithSearch";
-import SaveVideoModal from "../../components/SaveVideoModal/SaveVideoModal";
 import VideoCard from "../../components/VideoCard/VideoCard";
+import Modal from "../../components/Modal/Modal";
+import ModalForm from "../../components/ModalForm/ModalForm";
 
-const Home = () => {
-  const [modalData, setModalData] = useState({
-    vId: "",
-    title: "",
-    duration: "",
-    channel: "",
-  });
+const Home = ({ searchInput }) => {
   const { videos } = useVideo();
-  const { isModalVisible, setModalVisibility } = useModal();
-  const { searchInput } = useSearch();
+  const { isModalVisible, toggleModalVisibility, setModalData } = useModal();
   const { id } = useParams();
 
   const filterCategory = (videoArray, categoryId) => {
@@ -31,44 +21,30 @@ const Home = () => {
   const filteredCategory = filterCategory(videos, id);
   const searchedVideos = getSearchVideos(filteredCategory, searchInput);
 
-  const handleOptionClick = (videoObj) => {
-    setModalData(videoObj);
-    setModalVisibility("show");
+  const handleOptionClick = (videoId) => {
+    setModalData(videoId);
+    toggleModalVisibility();
   };
 
-  if (videos.length <= 0) {
-    return (
-      <DefaultWithSearch>
-        <h1 className="overlay">Loading ...</h1>
-      </DefaultWithSearch>
-    );
+  if (videos.length === 0) {
+    return <h1 className="overlay">Loading ...</h1>;
   }
+
   return (
-    <>
-      <DefaultWithSearch>
-        <div className={styles.videoPage}>
-          <Categorybar />
-          <div className={styles.listVideo}>
-            {isModalVisible === "show" && <SaveVideoModal {...modalData} />}
-            {searchedVideos.map(
-              ({ _id, avatar, title, duration, views, channel, postedOn }) => (
-                <VideoCard
-                  key={_id}
-                  vId={_id}
-                  avatar={avatar}
-                  title={title}
-                  duration={duration}
-                  views={views}
-                  channel={channel}
-                  postedOn={postedOn}
-                  onOptionClick={handleOptionClick}
-                />
-              )
-            )}
-          </div>
-        </div>
-      </DefaultWithSearch>
-    </>
+    <div className={styles.listVideo}>
+      {isModalVisible && (
+        <Modal handleClose={toggleModalVisibility}>
+          <ModalForm formType="SAVE_VIDEO" />
+        </Modal>
+      )}
+      {searchedVideos.map((video) => (
+        <VideoCard
+          key={video._id}
+          video={video}
+          onOptionClick={handleOptionClick}
+        />
+      ))}
+    </div>
   );
 };
 

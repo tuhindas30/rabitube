@@ -1,148 +1,202 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthProvider";
-import styles from "./Library.module.css";
+import { useWatchlater } from "../../contexts/WatchlaterProvider";
+import { useLike } from "../../contexts/LikeProvider";
+import { usePlaylist } from "../../contexts/PlaylistProvider";
+import { useHistory } from "../../contexts/HistoryProvider";
+import { useModal } from "../../contexts/ModalProvider";
 import PlayListItem from "../../components/PlaylistItem/PlayListItem";
 import generateThumbnail from "../../utils/generateThumbnail";
 import VideoCard from "../../components/VideoCard/VideoCard";
-import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
+import styles from "./Library.module.css";
+import { AiFillLike } from "react-icons/ai";
+import { MdWatchLater } from "react-icons/md";
+import { FaHistory } from "react-icons/fa";
+import { RiPlayListFill } from "react-icons/ri";
+import Modal from "../../components/Modal/Modal";
+import ModalForm from "../../components/ModalForm/ModalForm";
 
 const Library = () => {
-  const { userState } = useAuth();
-  const watchLaterPreview = userState.watchlater?.slice(0, 4);
-  const playListPreview = userState.playlists?.slice(0, 4);
-  const likePreview = userState.liked?.slice(0, 4);
+  const { isWatchlaterLoading, watchlaterState } = useWatchlater();
+  const { likeState } = useLike();
+  const { playlistState } = usePlaylist();
+  const { historyState } = useHistory();
+  const { isModalVisible, setModalData, toggleModalVisibility } = useModal();
+  const watchLaterPreview = watchlaterState.slice(0, 4);
+  const playListPreview = playlistState.slice(0, 4);
+  const likePreview = likeState.slice(0, 4);
+  const historyPreview = historyState.slice(0, 4);
 
-  if (!("liked" in userState)) {
-    return (
-      <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
-      </DefaultWithoutSearch>
-    );
+  const handleOptionClick = (videoId) => {
+    setModalData(videoId);
+    toggleModalVisibility();
+  };
+
+  if (isWatchlaterLoading) {
+    return <h1 className="overlay">Loading ...</h1>;
   }
   return (
     <>
-      <DefaultWithoutSearch>
-        <div className={styles.libraryItemsContainerDesktop}>
-          <section className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionTitle}>
-                <i className="bi bi-stopwatch-fill icon__large"></i>
-                <h3>Watch Later</h3>
+      <div className={styles.libraryItemsContainerDesktop}>
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionTitle}>
+              <MdWatchLater className="icon__large" />
+              <div
+                style={{
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  paddingLeft: "1rem",
+                }}>
+                Watch Later
               </div>
-              <Link
-                to="/watch-later"
-                className="link"
-                style={{ color: "var(--rb-primary)" }}>
-                <strong>SEE ALL</strong>
-              </Link>
             </div>
-            <div className={styles.watchlaterVideos}>
-              {watchLaterPreview?.map(
-                ({ _id, avatar, title, channel, views, postedOn }) => (
-                  <VideoCard
-                    key={_id}
-                    vId={_id}
-                    avatar={avatar}
-                    title={title}
-                    views={views}
-                    channel={channel}
-                    postedOn={postedOn}
-                  />
-                )
-              )}
-            </div>
-          </section>
-          <section className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionTitle}>
-                <i className="bi bi-music-note-list icon__large"></i>
-                <h3>Playlists</h3>
-              </div>
-              <Link
-                to="/playlists"
-                className="link"
-                style={{ color: "var(--rb-primary)" }}>
-                <strong>SEE ALL</strong>
-              </Link>
-            </div>
-            <div className={styles.playlistedVideosPreview}>
-              {playListPreview?.map(({ _id, title, videos }) => (
-                <Link key={_id} to={`/playlists/${_id}`} className="link">
-                  <div className={styles.playlists}>
-                    <div>
-                      <img
-                        className="image"
-                        src={
-                          videos.length > 0
-                            ? generateThumbnail(videos[0]._id)
-                            : ""
-                        }
-                        alt=""
-                      />
-                    </div>
-                    <div>{title}</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-          <section className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionTitle}>
-                <i className="bi bi-stopwatch-fill icon__large"></i>
-                <h3>Liked Videos</h3>
-              </div>
-              <Link
-                to="/liked"
-                className="link"
-                style={{ color: "var(--rb-primary)" }}>
-                <strong>SEE ALL</strong>
-              </Link>
-            </div>
-            <div className={styles.watchlaterVideos}>
-              {likePreview?.map(
-                ({ _id, avatar, title, channel, views, postedOn }) => (
-                  <VideoCard
-                    key={_id}
-                    vId={_id}
-                    avatar={avatar}
-                    title={title}
-                    views={views}
-                    channel={channel}
-                    postedOn={postedOn}
-                  />
-                )
-              )}
-            </div>
-          </section>
-        </div>
-
-        <div className={styles.libraryItemsContainer}>
-          <div className={styles.libraryTitle}>
-            <strong>My Library</strong>
+            <Link
+              to="/watchlater"
+              className={`link ${styles.hover}`}
+              style={{ color: "var(--rb-primary)" }}>
+              SEE ALL
+            </Link>
           </div>
-          <Link to="/liked" className="link">
-            <div className={styles.libraryItems}>
-              <i className="bi bi-hand-thumbs-up-fill"></i>
-              <div className={styles.libraryItemName}>Liked Videos</div>
-            </div>
-          </Link>
-          <Link to="/watch-later" className="link">
-            <div className={styles.libraryItems}>
-              <i className="bi bi-stopwatch-fill"></i>
-              <div className={styles.libraryItemName}>Watch Later</div>
-            </div>
-          </Link>
-          <div className={styles.libraryItems}>
-            <div className={styles.libraryItemNameNoImage}>Playlists</div>{" "}
-          </div>
-          <div className={styles.playlistsItem}>
-            {userState.playlists?.map(({ _id, title }) => (
-              <PlayListItem key={_id} pId={_id} title={title} />
+          <div className={styles.watchlaterVideos}>
+            {watchLaterPreview.map(({ video }) => (
+              <VideoCard
+                key={video._id}
+                video={video}
+                onOptionClick={handleOptionClick}
+              />
             ))}
           </div>
-        </div>
-      </DefaultWithoutSearch>
+        </section>
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionTitle}>
+              <AiFillLike className="icon__large" />
+              <div
+                style={{
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  paddingLeft: "1rem",
+                }}>
+                Liked Videos
+              </div>
+            </div>
+            <Link
+              to="/liked"
+              className={`link ${styles.hover}`}
+              style={{ color: "var(--rb-primary)" }}>
+              SEE ALL
+            </Link>
+          </div>
+          <div className={styles.likedVideos}>
+            {likePreview.map(({ video }) => (
+              <VideoCard
+                key={video._id}
+                video={video}
+                onOptionClick={handleOptionClick}
+              />
+            ))}
+          </div>
+        </section>
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionTitle}>
+              <RiPlayListFill className="icon__large" />
+              <div
+                style={{
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  paddingLeft: "1rem",
+                }}>
+                Playlists
+              </div>
+            </div>
+            <Link
+              to="/playlists"
+              className={`link ${styles.hover}`}
+              style={{ color: "var(--rb-primary)" }}>
+              SEE ALL
+            </Link>
+          </div>
+          <div className={styles.playlistedVideosPreview}>
+            {playListPreview?.map(({ _id, title, items }) => (
+              <Link
+                key={_id}
+                to={`/playlists/${_id}`}
+                className={`link ${styles.hover}`}>
+                <img
+                  className="image"
+                  src={
+                    items.length > 0
+                      ? generateThumbnail(items[0].video._id)
+                      : ""
+                  }
+                  alt="playlist thumbnail"
+                />
+                <div style={{ fontSize: "1.2rem", textAlign: "center" }}>
+                  {title}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionTitle}>
+              <FaHistory className="icon__large" />
+              <div
+                style={{
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  paddingLeft: "1rem",
+                }}>
+                History Videos
+              </div>
+            </div>
+            <Link
+              to="/history"
+              className={`link ${styles.hover}`}
+              style={{ color: "var(--rb-primary)" }}>
+              SEE ALL
+            </Link>
+          </div>
+          <div className={styles.historyVideos}>
+            {historyPreview.map(({ video }) => (
+              <VideoCard
+                key={video._id}
+                video={video}
+                onOptionClick={handleOptionClick}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <div className={styles.libraryItemsContainer}>
+        <div className={styles.libraryTitle}>My Library</div>
+        <Link
+          to="/watchlater"
+          className={`link flex-icon ${styles.libraryItems}`}>
+          <MdWatchLater className="icon__large" />
+          <div className={styles.libraryItemName}>Watch Later</div>
+        </Link>
+        <Link to="/liked" className={`link flex-icon ${styles.libraryItems}`}>
+          <AiFillLike className="icon__large" />
+          <div className={styles.libraryItemName}>Liked Videos</div>
+        </Link>
+        <Link to="/history" className={`link flex-icon ${styles.libraryItems}`}>
+          <FaHistory className="icon__large" />
+          <div className={styles.libraryItemName}>History</div>
+        </Link>
+        <div className={styles.librarySubHeading}>My Playlists</div>{" "}
+        {playlistState.map(({ _id, title }) => (
+          <PlayListItem key={_id} playlistId={_id} title={title} />
+        ))}
+      </div>
+      {isModalVisible && (
+        <Modal handleClose={toggleModalVisibility}>
+          <ModalForm formType="SAVE_VIDEO" />
+        </Modal>
+      )}
     </>
   );
 };

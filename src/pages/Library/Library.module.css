@@ -1,16 +1,21 @@
 .libraryItemsContainer {
-  display: block;
   margin-top: 5rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
 }
 
 .libraryTitle {
-  padding: 1rem;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .libraryItems {
-  display: flex;
-  align-items: center;
   padding: 1rem;
+  margin-bottom: 1rem;
+  border: 0.1rem solid var(--rb-grey);
+  border-radius: 0.5rem;
 }
 
 .libraryItemName {
@@ -18,8 +23,11 @@
   font-size: 1.2rem;
 }
 
-.libraryItemNameNoImage {
+.librarySubHeading {
   font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
 }
 
 .playlistItemContents {
@@ -61,24 +69,25 @@
     padding: 0 1rem;
   }
 
-  .sectionTitle h3 {
-    padding-left: 1rem;
-  }
-
-  .watchlaterVideos {
+  .watchlaterVideos,
+  .likedVideos,
+  .historyVideos {
     display: flex;
     padding: 1rem 0;
   }
 
-  .p0 {
-    padding: 0;
+  .hover {
+    padding: 1rem;
+  }
+
+  .hover:hover {
+    transition: 0.2s;
+    background-color: var(--rb-grey);
   }
 
   .playlistedVideosPreview {
     display: flex;
-  }
-
-  .playlists {
-    padding: 1rem;
+    padding: 1rem 0;
+    width: 25%;
   }
 }
