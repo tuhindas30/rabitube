@@ -1,24 +1,38 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ShortenUrlProvider } from "react-shorten-url";
 import { ModalProvider } from "./contexts/ModalProvider";
-import { SearchProvider } from "./contexts/SearchProvider";
 import { AuthProvider } from "./contexts/AuthProvider";
 import { VideoProvider } from "./contexts/VideoProvider";
+import { LikeProvider } from "./contexts/LikeProvider";
+import { WatchlaterProvider } from "./contexts/WatchlaterProvider";
+import { PlaylistProvider } from "./contexts/PlaylistProvider";
+import { HistoryProvider } from "./contexts/HistoryProvider";
+
+const accessToken = process.env.REACT_APP_BITLY_ACCESS_TOKEN;
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <ModalProvider>
-        <SearchProvider>
+      <ShortenUrlProvider config={{ accessToken }}>
+        <VideoProvider>
           <AuthProvider>
-            <VideoProvider>
-              <App />
-            </VideoProvider>
+            <LikeProvider>
+              <WatchlaterProvider>
+                <PlaylistProvider>
+                  <HistoryProvider>
+                    <ModalProvider>
+                      <App />
+                    </ModalProvider>
+                  </HistoryProvider>
+                </PlaylistProvider>
+              </WatchlaterProvider>
+            </LikeProvider>
           </AuthProvider>
-        </SearchProvider>
-      </ModalProvider>
+        </VideoProvider>
+      </ShortenUrlProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
