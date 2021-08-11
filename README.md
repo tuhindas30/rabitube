@@ -1,4 +1,4 @@
-# RabiKart - A MERN stack video library
+# RabiTube - A MERN stack video library
 
 <p align="center">
   <img alt="screenshot of rabitube" src="https://i.imgur.com/1ov1NhO.png">
@@ -25,11 +25,11 @@
 ## Features
 
 - Categorized sections
-- Sorting and filtering of products
 - User Authentication.
-- Add/remove products to/from the cart even if you are not a user.
-- Auto-sync cart to the database after user login.
-- Add/remove products to/from wishlist.
+- Playlists, Liked videos section, watch later
+- Sorted history according to the current time.
+- Add/remove videos from each section.
+- Cool feature: Share shorten video links on your favourite social media.
 - Update user details and change password.
 
 ## Demo
@@ -48,7 +48,7 @@
 Download the .zip file from Github or run the below command to clone the repo locally.
 
 ```bash
-git clone https://github.com/tuhindas30/rabikart.git
+git clone https://github.com/tuhindas30/rabitube.git
 ```
 
 ### Install dependencies
@@ -84,7 +84,7 @@ Currently development is going on [development branch](https://github.com/tuhind
 
 ## License
 
-RabiKart is [MIT licensed](http://opensource.org/licenses/MIT).
+RabiTube is [MIT licensed](http://opensource.org/licenses/MIT).
 
 ## Disclaimer
 
