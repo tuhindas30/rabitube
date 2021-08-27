@@ -7,6 +7,7 @@ import { ReactComponent as EmptyVideoSvg } from "../../assets/images/EmptyVideos
 import { Link } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
 import ModalForm from "../../components/ModalForm/ModalForm";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const Watchlater = () => {
   const { isModalVisible, setModalData, toggleModalVisibility } = useModal();
@@ -25,7 +26,11 @@ const Watchlater = () => {
   };
 
   if (isWatchlaterLoading) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
 
   if (watchlaterState.length === 0) {

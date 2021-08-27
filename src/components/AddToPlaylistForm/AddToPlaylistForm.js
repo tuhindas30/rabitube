@@ -6,6 +6,7 @@ import { IoMdTrash } from "react-icons/io";
 
 const AddToPlaylistForm = () => {
   const {
+    isPlaylistLoading,
     playlistState,
     createNewPlaylist,
     addToPlaylist,
@@ -75,8 +76,9 @@ const AddToPlaylistForm = () => {
           />
           <button
             onClick={handleCreate}
-            className={`btn primary ${styles.newPlaylistButton}`}>
-            Create
+            className={`btn primary ${styles.newPlaylistButton}`}
+            disabled={isPlaylistLoading}>
+            {isPlaylistLoading ? "Creating ..." : "Create"}
           </button>
         </>
       )}
@@ -103,7 +105,8 @@ const AddToPlaylistForm = () => {
           </div>
           <button
             onClick={() => deletePlaylist(_id)}
-            className={`btn flex-icon ${styles.deletePlaylistButton}`}>
+            className={`btn flex-icon ${styles.deletePlaylistButton}`}
+            disabled={isPlaylistLoading}>
             <IoMdTrash />
           </button>
         </div>

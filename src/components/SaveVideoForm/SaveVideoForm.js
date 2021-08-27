@@ -4,7 +4,7 @@ import { useModal } from "../../contexts/ModalProvider";
 
 const SaveVideoForm = ({ setModalFormType }) => {
   const { modalData, toggleModalVisibility } = useModal();
-  const { addToWatchlater } = useWatchlater();
+  const { isWatchlaterLoading, addToWatchlater } = useWatchlater();
 
   const handleSaveToWatchlater = async (videoId) => {
     await addToWatchlater(videoId);
@@ -15,8 +15,9 @@ const SaveVideoForm = ({ setModalFormType }) => {
     <>
       <button
         onClick={() => handleSaveToWatchlater(modalData)}
-        className={`btn secondary ${styles.saveButton}`}>
-        Save to Watch Later
+        className={`btn secondary ${styles.saveButton}`}
+        disabled={isWatchlaterLoading}>
+        {isWatchlaterLoading ? "Saving ..." : "Save to Watch Later"}
       </button>
       <button
         onClick={() => setModalFormType("ADD_TO_PLAYLIST")}

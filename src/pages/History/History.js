@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as EmptyVideosSvg } from "../../assets/images/EmptyVideosImage.svg";
 import { IoMdTrash } from "react-icons/io";
 import { useHistory } from "../../contexts/HistoryProvider";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const History = () => {
   const {
@@ -39,7 +40,11 @@ const History = () => {
   );
 
   if (isHistoryLoading) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
 
   if (historyState.length === 0) {

@@ -6,6 +6,7 @@ import styles from "./Home.module.css";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import Modal from "../../components/Modal/Modal";
 import ModalForm from "../../components/ModalForm/ModalForm";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const Home = ({ searchInput }) => {
   const { videos } = useVideo();
@@ -27,7 +28,11 @@ const Home = ({ searchInput }) => {
   };
 
   if (videos.length === 0) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
 
   return (
