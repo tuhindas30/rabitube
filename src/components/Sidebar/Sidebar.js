@@ -50,7 +50,7 @@ const Sidebar = () => {
       </ul>
       {!token && (
         <>
-          <div style={{ fontSize: "1.1rem" }}>
+          <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
             Sign in to Like and Save videos and many more!
           </div>
           <Link to="/signin" className="btn links btn-link">
