@@ -12,6 +12,8 @@ import { AiFillLike } from "react-icons/ai";
 import { RiPlayListAddFill, RiShareForwardFill } from "react-icons/ri";
 import { ReactComponent as EmptyVideosSvg } from "../../assets/images/EmptyVideosImage.svg";
 import { useState } from "react";
+import showToast from "../../utils/showToast";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const Video = () => {
   const { videoId } = useParams();
@@ -45,7 +47,11 @@ const Video = () => {
   };
 
   if (isVideosLoading) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
 
   if (videos.length === 0) {
@@ -82,29 +88,31 @@ const Video = () => {
         <div style={{ fontSize: "1.2rem" }}>{video.title}</div>
         <div>{video.viewCount} views</div>
         <div className={styles.savebar}>
-          {token && (
-            <>
-              <div
-                onClick={() => handleLike(videoId)}
-                className={`flex-icon ${styles.savebarItem}`}>
-                <AiFillLike
-                  className="icon__large"
-                  style={{
-                    color: isVideoPresent
-                      ? "var(--rb-primary)"
-                      : "var(--rb-black)",
-                  }}
-                />
-                <div style={{ fontSize: "0.9rem" }}>Like</div>
-              </div>
-              <div
-                onClick={() => handleSave(videoId)}
-                className={`flex-icon ${styles.savebarItem}`}>
-                <RiPlayListAddFill className="icon__large" />
-                <div style={{ fontSize: "0.9rem" }}>Save</div>
-              </div>
-            </>
-          )}
+          <div
+            onClick={() =>
+              token
+                ? handleLike(videoId)
+                : showToast("Sign-in to Like this video")
+            }
+            className={`flex-icon ${styles.savebarItem}`}>
+            <AiFillLike
+              className="icon__large"
+              style={{
+                color: isVideoPresent ? "var(--rb-primary)" : "var(--rb-black)",
+              }}
+            />
+            <div style={{ fontSize: "0.9rem" }}>Like</div>
+          </div>
+          <div
+            onClick={() =>
+              token
+                ? handleSave(videoId)
+                : showToast("Sign-in to save this video")
+            }
+            className={`flex-icon ${styles.savebarItem}`}>
+            <RiPlayListAddFill className="icon__large" />
+            <div style={{ fontSize: "0.9rem" }}>Save</div>
+          </div>
           <div
             onClick={() => handleShare(videoId)}
             className={`flex-icon ${styles.savebarItem}`}>

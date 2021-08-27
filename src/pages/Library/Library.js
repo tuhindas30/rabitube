@@ -14,6 +14,7 @@ import { FaHistory } from "react-icons/fa";
 import { RiPlayListFill } from "react-icons/ri";
 import Modal from "../../components/Modal/Modal";
 import ModalForm from "../../components/ModalForm/ModalForm";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const Library = () => {
   const { isWatchlaterLoading, watchlaterState } = useWatchlater();
@@ -32,7 +33,11 @@ const Library = () => {
   };
 
   if (isWatchlaterLoading) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
   return (
     <>

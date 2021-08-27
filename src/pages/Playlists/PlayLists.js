@@ -7,13 +7,18 @@ import { RiPlayListAddFill } from "react-icons/ri";
 import { useModal } from "../../contexts/ModalProvider";
 import Modal from "../../components/Modal/Modal";
 import ModalForm from "../../components/ModalForm/ModalForm";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const PlayLists = () => {
   const { isPlaylistLoading, playlistState } = usePlaylist();
   const { isModalVisible, toggleModalVisibility } = useModal();
 
   if (isPlaylistLoading === 0) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
 
   if (playlistState.length === 0) {

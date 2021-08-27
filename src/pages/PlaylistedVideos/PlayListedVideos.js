@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as EmptyVideosSvg } from "../../assets/images/EmptyVideosImage.svg";
 import Modal from "../../components/Modal/Modal";
 import ModalForm from "../../components/ModalForm/ModalForm";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const PlayListedVideos = () => {
   const { isPlaylistLoading, playlistState, removeFromPlaylist } =
@@ -31,7 +32,11 @@ const PlayListedVideos = () => {
   };
 
   if (isPlaylistLoading) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
 
   if (playlist?.items.length === 0) {

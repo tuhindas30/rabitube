@@ -4,6 +4,7 @@ import generateThumbnail from "../../utils/generateThumbnail";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useHistory } from "../../contexts/HistoryProvider";
+import showToast from "../../utils/showToast";
 
 const VideoCard = ({ video, onOptionClick }) => {
   const { token } = useAuth();
@@ -48,13 +49,15 @@ const VideoCard = ({ video, onOptionClick }) => {
             <p className="grey-text">{video.uploadDate}</p>
           </div>
         </Link>
-        {token && (
-          <div
-            onClick={() => onOptionClick(video._id)}
-            className={styles.optionMenuContainer}>
-            <BsThreeDotsVertical />
-          </div>
-        )}
+        <div
+          onClick={() =>
+            token
+              ? onOptionClick(video._id)
+              : showToast("Sign-in to view more options")
+          }
+          className={styles.optionMenuContainer}>
+          <BsThreeDotsVertical />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthProvider";
+import { ReactComponent as Loader } from "../assets/images/Loader.svg";
 import "../assets/css/Form.css";
 
 const User = () => {
@@ -107,7 +108,11 @@ const User = () => {
   };
 
   if (isUserLoading) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
 
   return (

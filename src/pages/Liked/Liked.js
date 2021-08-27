@@ -7,6 +7,7 @@ import generateThumbnail from "../../utils/generateThumbnail";
 import { useLike } from "../../contexts/LikeProvider";
 import { Link } from "react-router-dom";
 import { ReactComponent as EmptyVideosSvg } from "../../assets/images/EmptyVideosImage.svg";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const Liked = () => {
   const { isLikeLoading, likeState, removeFromLikedPlaylist } = useLike();
@@ -24,7 +25,11 @@ const Liked = () => {
   };
 
   if (isLikeLoading) {
-    return <h1 className="overlay">Loading ...</h1>;
+    return (
+      <div className="overlay">
+        <Loader />
+      </div>
+    );
   }
 
   if (likeState.length === 0) {
