@@ -12,10 +12,11 @@ const getPlaylists = async () => {
   }
 };
 
-const createNewPlaylist = async (title) => {
+const createNewPlaylist = async (title, videoId) => {
   try {
     const { data } = await axios.post(`${url}`, {
       title,
+      videoId,
     });
     return data;
   } catch (err) {
