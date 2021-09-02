@@ -30,6 +30,7 @@
   top: 12.5rem;
   padding: 1rem;
   padding-bottom: 4rem;
+  margin: 0 0.5rem;
 }
 
 .savebar {
@@ -56,7 +57,7 @@
   align-items: center;
   margin-top: 4rem;
   text-align: center;
-  height: 80vh;
+  height: 78vh;
 }
 
 @media screen and (min-width: 768px) {
@@ -83,10 +84,48 @@
 
   .videoDetails {
     position: static;
+    margin-left: 2rem;
   }
 
   .description {
     padding-top: 1rem;
     padding-left: 3.8rem;
+  }
+
+  .noVideosFound {
+    margin-top: 8rem;
+    margin-left: 26.5rem;
+    height: 74vh;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .video {
+    margin-left: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .video {
+    margin-left: 18rem;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .video {
+    margin-left: 25rem;
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  .video {
+    margin-left: 32rem;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .noVideosFound {
+    margin-left: 0;
+    height: 68vh;
   }
 }
