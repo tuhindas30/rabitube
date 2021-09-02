@@ -9,11 +9,11 @@
 
 .form--control {
   padding: 1rem;
+  margin: 0.5rem;
   width: 100%;
   border-radius: 1rem;
   border: 1px solid var(--rb-dark-grey);
   background-color: var(--rb-light-grey);
-  /* border: 1px solid black; */
 }
 
 .form--control h1 {
@@ -34,22 +34,35 @@
 .form--control label div {
   padding: 0.5rem 0;
   font-weight: 600;
-  /* display: block; */
 }
 
 .form--control input {
   width: 100%;
   padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.password-icon {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .form--control button {
   width: 100%;
   font-weight: 600;
-  margin: 2rem 0;
+  margin: 0.5rem auto;
+}
+
+.form--control .signin-btn {
+  margin-top: 2rem;
 }
 
 .form--control .form--footer {
   text-align: center;
+  font-weight: bold;
 }
 
 .form--footer .link {

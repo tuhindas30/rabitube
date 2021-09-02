@@ -57,7 +57,7 @@ const Video = () => {
   if (videos.length === 0) {
     return (
       <div className={styles.noVideosFound}>
-        <EmptyVideosSvg width="80%" />
+        <EmptyVideosSvg width="50%" />
         <p
           style={{
             fontWeight: "bold",

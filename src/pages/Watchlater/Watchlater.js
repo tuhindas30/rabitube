@@ -36,7 +36,7 @@ const Watchlater = () => {
   if (watchlaterState.length === 0) {
     return (
       <div className={styles.noVideosFound}>
-        <EmptyVideoSvg width="80%" />
+        <EmptyVideoSvg width="50%" />
         <p
           style={{
             fontWeight: "bold",

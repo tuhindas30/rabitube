@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../contexts/AuthProvider";
 import { ReactComponent as Loader } from "../assets/images/Loader.svg";
 import "../assets/css/Form.css";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const User = () => {
   const [isPassHidden, setShowPass] = useState(true);
@@ -192,22 +193,34 @@ const User = () => {
             required
           />
           {isPassHidden ? (
-            <i
+            <AiFillEye
               onClick={() => setShowPass(false)}
-              className="bi bi-eye-fill"></i>
+              className="password-icon"
+            />
           ) : (
-            <i
+            <AiFillEyeInvisible
               onClick={() => setShowPass(true)}
-              className="bi bi-eye-slash-fill"></i>
+              className="password-icon"
+            />
           )}
         </label>
+        <div style={{ color: "var(--rb-red)", fontWeight: "bold" }}>
+          {userCredentials.confirmPassword &&
+          userCredentials.newPassword !== userCredentials.confirmPassword
+            ? "Passwords don't match"
+            : ""}
+        </div>
         <button
           className={`btn primary ${
-            changePasswordBtn.isDisabled && "disabled-btn"
+            changePasswordBtn.isDisabled ? "disabled-btn" : ""
           }`}
           type="submit"
           disabled={changePasswordBtn.isDisabled}>
-          {changePasswordBtn.isLoading ? "Loading ..." : "Change Password"}
+          {changePasswordBtn.isLoading ? (
+            <Loader style={{ width: "1.5rem", height: "1.5rem" }} />
+          ) : (
+            "Change Password"
+          )}
         </button>
       </form>
     </div>

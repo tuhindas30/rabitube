@@ -5,17 +5,10 @@
 }
 
 .playlistsHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   text-align: center;
   padding: 1rem 0;
   font-size: 1.5rem;
   font-weight: bold;
-}
-
-.newPlaylistButton {
-  padding: 0.2rem 0.5rem;
 }
 
 .noPlaylistFound {
@@ -25,7 +18,7 @@
   align-items: center;
   margin-top: 4rem;
   text-align: center;
-  height: 80vh;
+  height: 78vh;
 }
 
 @media screen and (min-width: 768px) {
@@ -35,5 +28,22 @@
 
   .playlists--title {
     font-size: 1.5rem;
+  }
+
+  .noPlaylistFound {
+    margin-top: 8rem;
+    margin-left: 26.5rem;
+    height: 74vh;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .playlistsContainer {
+    margin-left: 1rem;
+  }
+
+  .noPlaylistFound {
+    margin-left: 0;
+    height: 68vh;
   }
 }

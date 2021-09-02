@@ -46,11 +46,11 @@ const PlaylistProvider = ({ children }) => {
     return () => source.cancel("watchlater unmounted");
   }, [token]);
 
-  const createNewPlaylist = async (title) => {
+  const createNewPlaylist = async (title, videoId) => {
     if (token) {
       try {
         setPlaylistLoading(true);
-        const response = await playlistApi.createNewPlaylist(title);
+        const response = await playlistApi.createNewPlaylist(title, videoId);
         if (response.status === "SUCCESS") {
           playlistDispatch({
             type: "ADD_PLAYLIST",

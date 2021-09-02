@@ -19,7 +19,7 @@
   align-items: center;
   margin-top: 4rem;
   text-align: center;
-  height: 80vh;
+  height: 78vh;
 }
 
 @media screen and (min-width: 768px) {
@@ -29,5 +29,18 @@
 
   .watchlaterHeader {
     display: none;
+  }
+
+  .noVideosFound {
+    margin-top: 8rem;
+    margin-left: 26.5rem;
+    height: 74vh;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .noVideosFound {
+    margin-left: 0;
+    height: 68vh;
   }
 }

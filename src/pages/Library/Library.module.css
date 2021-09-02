@@ -45,6 +45,7 @@
   .libraryItemsContainer {
     display: none;
   }
+
   .libraryItemsContainerDesktop {
     display: block;
     margin-top: 5rem;
@@ -89,5 +90,29 @@
     display: flex;
     padding: 1rem 0;
     width: 25%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .libraryItemsContainerDesktop {
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .libraryItemsContainerDesktop {
+    margin-left: 20rem;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .libraryItemsContainerDesktop {
+    margin-left: 25rem;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .libraryItemsContainerDesktop {
+    margin-left: 30rem;
   }
 }

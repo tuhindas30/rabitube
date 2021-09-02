@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useShortenUrl } from "react-shorten-url";
 import showToast from "../../utils/showToast";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 import {
   EmailIcon,
   EmailShareButton,
@@ -29,7 +30,8 @@ const ShareForm = () => {
   if (loading) {
     return (
       <div style={{ overflow: "none", border: "1px solid black" }}>
-        Generating shareable link ...
+        Generating shareable link{" "}
+        <Loader style={{ width: "1rem", height: "1rem" }} />
       </div>
     );
   }
