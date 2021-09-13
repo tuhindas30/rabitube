@@ -9,8 +9,6 @@ import { useAuth } from "./AuthProvider";
 import playlistReducer from "../reducers/playlistReducer";
 import * as playlistApi from "../api/playlist";
 import showToast from "../utils/showToast";
-import axios from "axios";
-import { setupCancelToken } from "../utils/helper";
 
 const PlaylistContext = createContext();
 
@@ -18,8 +16,6 @@ const PlaylistProvider = ({ children }) => {
   const [playlistState, playlistDispatch] = useReducer(playlistReducer, []);
   const [isPlaylistLoading, setPlaylistLoading] = useState(false);
   const { token } = useAuth();
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     if (token) {
@@ -43,7 +39,6 @@ const PlaylistProvider = ({ children }) => {
         }
       })();
     }
-    return () => source.cancel("watchlater unmounted");
   }, [token]);
 
   const createNewPlaylist = async (title, videoId) => {

@@ -9,8 +9,6 @@ import { useAuth } from "./AuthProvider";
 import likeReducer from "../reducers/likeReducer";
 import * as likeApi from "../api/like";
 import showToast from "../utils/showToast";
-import axios from "axios";
-import { setupCancelToken } from "../utils/helper";
 
 const LikeContext = createContext();
 
@@ -18,8 +16,6 @@ const LikeProvider = ({ children }) => {
   const [likeState, likeDispatch] = useReducer(likeReducer, []);
   const [isLikeLoading, setLikeLoading] = useState(false);
   const { token } = useAuth();
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     if (token) {
@@ -48,7 +44,6 @@ const LikeProvider = ({ children }) => {
         payload: { items: [] },
       });
     }
-    return () => source.cancel("like unmounted");
   }, [token]);
 
   const addToLikedPlaylist = async (videoId) => {

@@ -8,8 +8,6 @@ import {
 import { useAuth } from "./AuthProvider";
 import historyReducer from "../reducers/historyReducer";
 import * as historyApi from "../api/history";
-import axios from "axios";
-import { setupCancelToken } from "../utils/helper";
 import showToast from "../utils/showToast";
 
 const HistoryContext = createContext();
@@ -18,8 +16,6 @@ const HistoryProvider = ({ children }) => {
   const [historyState, historyDispatch] = useReducer(historyReducer, []);
   const [isHistoryLoading, setHistoryLoading] = useState(false);
   const { token } = useAuth();
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     if (token) {
@@ -48,7 +44,6 @@ const HistoryProvider = ({ children }) => {
         payload: { items: [] },
       });
     }
-    return () => source.cancel("history unmounted");
   }, [token]);
 
   const addToHistory = async (videoId) => {
