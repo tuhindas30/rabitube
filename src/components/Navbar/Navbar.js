@@ -1,10 +1,13 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
-import styles from "./Navbar.module.css";
+import debounce from "../../utils/debounce";
 import { FaUserCircle } from "react-icons/fa";
+import styles from "./Navbar.module.css";
 
 const Navbar = ({ search = false, searchInput = "", setSearchInput }) => {
   const { token, signout } = useAuth();
+
+  const debouncedSearch = debounce((e) => setSearchInput(e.target.value), 1000);
 
   return (
     <nav className={`navbar ${styles.navbar}`}>
@@ -16,8 +19,7 @@ const Navbar = ({ search = false, searchInput = "", setSearchInput }) => {
       {search && (
         <div className={styles.searchDesktop}>
           <input
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={debouncedSearch}
             className="search-box"
             type="text"
             placeholder="Search for videos"
