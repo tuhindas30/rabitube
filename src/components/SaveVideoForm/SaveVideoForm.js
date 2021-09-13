@@ -6,7 +6,7 @@ import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 
 const SaveVideoForm = ({ setModalFormType }) => {
   const { modalData } = useModal();
-  const { isWatchlaterLoading, addToWatchlater } = useWatchlater();
+  const { addToWatchlater } = useWatchlater();
   const [isLoading, setLoading] = useState(false);
   const handleSaveToWatchlater = async (videoId) => {
     setLoading(true);

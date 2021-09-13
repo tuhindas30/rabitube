@@ -9,8 +9,6 @@ import { useAuth } from "./AuthProvider";
 import watchlaterReducer from "../reducers/watchlaterReducer";
 import * as watchlaterApi from "../api/watchlater";
 import showToast from "../utils/showToast";
-import axios from "axios";
-import { setupCancelToken } from "../utils/helper";
 
 const WatchlaterContext = createContext();
 
@@ -21,8 +19,6 @@ const WatchlaterProvider = ({ children }) => {
   );
   const [isWatchlaterLoading, setWatchlaterLoading] = useState(false);
   const { token } = useAuth();
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     if (token) {
@@ -46,7 +42,6 @@ const WatchlaterProvider = ({ children }) => {
         }
       })();
     }
-    return () => source.cancel("watchlater unmounted");
   }, [token]);
 
   const addToWatchlater = async (videoId) => {

@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { setupCancelToken } from "../utils/helper";
 import * as videoApi from "../api/video";
 import * as categoryApi from "../api/category";
-import axios from "axios";
 
 const VideoContext = createContext();
 
@@ -10,9 +8,6 @@ const VideoProvider = ({ children }) => {
   const [isVideosLoading, setVideosLoading] = useState(false);
   const [videos, setVideos] = useState([]);
   const [categories, setCategories] = useState([]);
-
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     (async () => {
@@ -26,7 +21,6 @@ const VideoProvider = ({ children }) => {
         setVideosLoading(false);
       }
     })();
-    return () => source.cancel("products unmounted");
   }, []);
 
   useEffect(() => {
@@ -41,7 +35,6 @@ const VideoProvider = ({ children }) => {
         setVideosLoading(false);
       }
     })();
-    return () => source.cancel("products unmounted");
   }, []);
 
   return (

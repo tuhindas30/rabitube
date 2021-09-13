@@ -2,14 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import * as authApi from "../api/auth";
 import * as userApi from "../api/user";
-import {
-  setupAuthExceptionHandler,
-  setupAuthHeader,
-  setupCancelToken,
-} from "../utils/helper";
+import { setupAuthExceptionHandler, setupAuthHeader } from "../utils/helper";
 import { useNavigate } from "react-router";
 import showToast from "../utils/showToast";
-import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -19,8 +14,6 @@ const AuthProvider = ({ children }) => {
   const [isUserLoading, setUserLoading] = useState(false);
   const [tokenExpiry, setTokenExpiry] = useState(null);
   const navigate = useNavigate();
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
   token && setupAuthHeader(token);
 
   useEffect(() => {
@@ -39,12 +32,10 @@ const AuthProvider = ({ children }) => {
       } catch (err) {
         alert(`${err.message}\nPlease sign-in again`);
         signout();
-        navigate("/signin");
       } finally {
         setUserLoading(false);
       }
     }
-    return () => source.cancel("user unmounted");
   }, [token]);
 
   const getToken = () => {
