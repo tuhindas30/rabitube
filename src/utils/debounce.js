@@ -4,7 +4,7 @@ const debounce = (func, delay) => {
     if (timer) {
       clearTimeout(timer);
     }
-    setTimeout(function () {
+    timer = setTimeout(function () {
       func.apply(this, args);
     }, delay);
   };
