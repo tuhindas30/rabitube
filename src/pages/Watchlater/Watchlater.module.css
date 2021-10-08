@@ -1,0 +1,46 @@
+.watchlaterVideolist {
+  margin-top: 5rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.watchlaterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.noVideosFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  text-align: center;
+  height: 78vh;
+}
+
+@media screen and (min-width: 768px) {
+  .watchlaterVideolist {
+    padding: 1rem 0;
+  }
+
+  .watchlaterHeader {
+    display: none;
+  }
+
+  .noVideosFound {
+    margin-top: 8rem;
+    margin-left: 26.5rem;
+    height: 74vh;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .noVideosFound {
+    margin-left: 0;
+    height: 68vh;
+  }
+}

@@ -1,0 +1,73 @@
+.videoContainer {
+  display: grid;
+  grid-template-columns: 1fr 0.1fr;
+  margin-bottom: 1rem;
+}
+
+.videoContainer:hover {
+  transition: 0.2s;
+  background-color: var(--rb-grey);
+}
+
+.optionMenuContainer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  height: fit-content;
+}
+
+@media screen and (min-width: 768px) {
+  .videoContainer {
+    grid-template-columns: 2fr 0.2fr;
+    margin-left: 39.2rem;
+    padding: 1rem;
+    margin-bottom: 0;
+    font-size: 1.2rem;
+  }
+
+  .videoInfo {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .videoContainer {
+    margin-left: 25rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .videoContainer {
+    margin-left: 42rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .videoContainer {
+    margin-left: 50rem;
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .videoContainer {
+    margin-left: 55rem;
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .videoContainer {
+    margin-left: 65rem;
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .videoContainer {
+    margin-left: 77rem;
+    font-size: 2.5rem;
+  }
+}

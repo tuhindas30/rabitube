@@ -1,0 +1,35 @@
+.sidebarNav {
+  display: none;
+}
+
+@media screen and (min-width: 1182px) {
+  .sidebarNav {
+    display: block;
+    position: fixed;
+    top: 5rem;
+    width: 16%;
+    height: 100vh;
+    padding: 1rem;
+    text-align: center;
+    border-right: 1px solid var(--rb-dark-grey);
+  }
+
+  .linksContainer {
+    margin-bottom: 1rem;
+    list-style: none;
+  }
+
+  .linksContainer li {
+    padding: 1rem;
+  }
+
+  .linkName {
+    padding-left: 1rem;
+  }
+
+  .hover:hover {
+    transition: 0.5s;
+    border-radius: 10rem;
+    background-color: var(--rb-grey);
+  }
+}

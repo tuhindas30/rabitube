@@ -1,0 +1,124 @@
+@import "https://rabiui.netlify.app/css/rabiui.components.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: 0px;
+}
+
+:root {
+  --color-primary-black: #181818;
+  --color-link-blue: #3b82f6;
+}
+
+body {
+  background-color: var(--rb-light-grey);
+}
+
+.modal,
+.modal-overlay {
+  display: block;
+}
+
+.modal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.link {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: var(--rb-light-black);
+}
+
+.overlay {
+  z-index: 15;
+}
+
+.modal-overlay {
+  z-index: 15;
+}
+
+.btn.primary.disabled {
+  opacity: 0.5;
+}
+
+.btn-link {
+  width: fit-content;
+  margin: 1rem auto;
+  text-decoration: none;
+  color: var(--rb-very-light-grey);
+}
+
+.flex-icon {
+  display: flex;
+  align-items: center;
+}
+
+.Toastify__toast-body {
+  text-align: center;
+}
+
+.icon__large {
+  font-size: 1.5rem;
+}
+
+.grey-text {
+  color: var(--rb-dark-grey);
+}
+.search-box {
+  font-size: 1rem;
+}
+
+.playlist-bar {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .playlist-bar {
+    display: block;
+    position: fixed;
+    padding: 1rem;
+    left: 13.5rem;
+    width: 30%;
+    height: 100vh;
+    border-right: 0.1rem solid var(--rb-dark-grey);
+  }
+
+  .sidebar-nav {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .playlist-bar {
+    left: 1rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .playlist-bar {
+    left: 15rem;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .playlist-bar {
+    left: 18rem;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .playlist-bar {
+    left: 20rem;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .playlist-bar {
+    left: 27rem;
+  }
+}

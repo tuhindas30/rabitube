@@ -1,0 +1,118 @@
+.libraryItemsContainer {
+  margin-top: 5rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.libraryTitle {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.libraryItems {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 0.1rem solid var(--rb-grey);
+  border-radius: 0.5rem;
+}
+
+.libraryItemName {
+  padding: 0 1rem;
+  font-size: 1.2rem;
+}
+
+.librarySubHeading {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
+}
+
+.playlistItemContents {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  border: 1px solid var(--rb-grey);
+}
+
+.libraryItemsContainerDesktop {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .libraryItemsContainer {
+    display: none;
+  }
+
+  .libraryItemsContainerDesktop {
+    display: block;
+    margin-top: 5rem;
+    margin-left: 13.6rem;
+  }
+
+  .section {
+    padding: 1rem;
+    border-top: 1px solid var(--rb-dark-grey);
+    border-bottom: 1px solid var(--rb-dark-grey);
+  }
+
+  .sectionTitle {
+    display: flex;
+    align-items: center;
+  }
+
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .watchlaterVideos,
+  .likedVideos,
+  .historyVideos {
+    display: flex;
+    padding: 1rem 0;
+  }
+
+  .hover {
+    padding: 1rem;
+  }
+
+  .hover:hover {
+    transition: 0.2s;
+    background-color: var(--rb-grey);
+  }
+
+  .playlistedVideosPreview {
+    display: flex;
+    padding: 1rem 0;
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .libraryItemsContainerDesktop {
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .libraryItemsContainerDesktop {
+    margin-left: 20rem;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .libraryItemsContainerDesktop {
+    margin-left: 25rem;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .libraryItemsContainerDesktop {
+    margin-left: 30rem;
+  }
+}

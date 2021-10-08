@@ -1,0 +1,49 @@
+.playlistsContainer {
+  margin-top: 5rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.playlistsHeader {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.noPlaylistFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  text-align: center;
+  height: 78vh;
+}
+
+@media screen and (min-width: 768px) {
+  .playlistsContainer {
+    margin-left: 13.6rem;
+  }
+
+  .playlists--title {
+    font-size: 1.5rem;
+  }
+
+  .noPlaylistFound {
+    margin-top: 8rem;
+    margin-left: 26.5rem;
+    height: 74vh;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1182px) {
+  .playlistsContainer {
+    margin-left: 1rem;
+  }
+
+  .noPlaylistFound {
+    margin-left: 0;
+    height: 68vh;
+  }
+}
